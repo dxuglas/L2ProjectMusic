@@ -1,5 +1,14 @@
-from PyQt6.QtWidgets import QFrame, QPushButton, QHBoxLayout, QVBoxLayout, QSlider
-from PyQt6.QtCore import QSize, Qt
+from PyQt6.QtWidgets import (
+  QFrame, 
+  QPushButton, 
+  QHBoxLayout, 
+  QVBoxLayout, 
+  QSlider
+)
+from PyQt6.QtCore import (
+  QSize, 
+  Qt
+)
 from PyQt6.QtGui import QIcon
 
 
@@ -14,11 +23,14 @@ class MediaInterface(QFrame):
     self.setFixedHeight(int(self.parent.screen_size[0] * 0.046))
 
     self.layout = QVBoxLayout()
-    self.layout.setContentsMargins(0, int(self.parent.screen_size[0] * 0.007), 0, int(self.parent.screen_size[0] * 0.007))
+    self.layout.setContentsMargins(0, int(self.parent.screen_size[0] * 0.007), 
+                                   0, int(self.parent.screen_size[0] * 0.007))
     self.setLayout(self.layout)
 
-    self.layout.addWidget(MediaControls(self), alignment = Qt.AlignmentFlag.AlignCenter)
-    self.layout.addWidget(ProgressBar(self), alignment = Qt.AlignmentFlag.AlignCenter)
+    self.layout.addWidget(MediaControls(self), 
+                          alignment = Qt.AlignmentFlag.AlignCenter)
+    self.layout.addWidget(ProgressBar(self), 
+                          alignment = Qt.AlignmentFlag.AlignCenter)
 
 
 class MediaControls(QFrame):
@@ -36,36 +48,37 @@ class MediaControls(QFrame):
     self.setLayout(self.layout)
 
     self.shuffle_btn = QPushButton(objectName = "shuffle_track_btn",
-                                      icon = QIcon(r"ui\assets\shuffle.svg"), 
-                                      flat = True, 
-                                      size = QSize(self.height, self.height), 
-                                      iconSize = QSize(self.height, self.height))
+                                   icon = QIcon(r"ui\assets\shuffle.svg"),
+                                   flat = True, 
+                                   size = QSize(self.height, self.height), 
+                                   iconSize = QSize(self.height, self.height))
 
     self.bw_track_btn = QPushButton(objectName = "bw_track_btn",
-                                      icon = QIcon(r"ui\assets\bw_track.svg"), 
-                                      flat = True, 
-                                      size = QSize(self.height, self.height), 
-                                      iconSize = QSize(self.height, self.height))
+                                    icon = QIcon(r"ui\assets\bw_track.svg"), 
+                                    flat = True, 
+                                    size = QSize(self.height, self.height), 
+                                    iconSize = QSize(self.height, self.height))
 
     self.pause_play_btn = QPushButton(objectName = "pause_play_btn",
                                       icon = QIcon(r"ui\assets\play.svg"),
                                       flat = True, 
                                       size = QSize(self.height, self.height), 
-                                      iconSize = QSize(self.height, self.height))
+                                      iconSize = QSize(self.height, 
+                                                       self.height))
     self.pause_play_state = True
     self.pause_play_btn.clicked.connect(self.pause_play)
     
     self.fw_track_btn = QPushButton(objectName = "fw_track_btn",
-                                      icon = QIcon(r"ui\assets\fw_track.svg"), 
-                                      flat = True, 
-                                      size = QSize(self.height, self.height), 
-                                      iconSize = QSize(self.height, self.height))
+                                    icon = QIcon(r"ui\assets\fw_track.svg"), 
+                                    flat = True, 
+                                    size = QSize(self.height, self.height), 
+                                    iconSize = QSize(self.height, self.height))
     
     self.loop_btn = QPushButton(objectName = "loop_btn",
-                                      icon = QIcon(r"ui\assets\loop.svg"), 
-                                      flat = True, 
-                                      size = QSize(self.height, self.height), 
-                                      iconSize = QSize(self.height, self.height))
+                                icon = QIcon(r"ui\assets\loop.svg"), 
+                                flat = True, 
+                                size = QSize(self.height, self.height), 
+                                iconSize = QSize(self.height, self.height))
     
     self.layout.addWidget(self.shuffle_btn)
     self.layout.addSpacing(self.height)

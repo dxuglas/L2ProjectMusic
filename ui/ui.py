@@ -1,4 +1,7 @@
-from qframelesswindow import FramelessWindow as QWindow, TitleBar as QTitleBar
+from qframelesswindow import (
+  FramelessWindow as QWindow, 
+  TitleBar as QTitleBar
+)
 from PyQt6.QtWidgets import QVBoxLayout
 from PyQt6.QtCore import Qt
 

@@ -1,3 +1,14 @@
+@font-face {
+  font-family: 'RubikMonoOne';
+  src: url(assets/fonts/RubikMonoOne-Regular.ttf)
+}
+
 QFrame#Library {
   background-color: black;
+}
+
+QLabel#lib_label {
+  color: white;
+  font-family: "RubikMonoOne";
+  font-weight: 700;
 }
