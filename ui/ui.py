@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QVBoxLayout
 from PyQt6.QtCore import Qt
 
 from .media_interface import MediaInterface
+from .library import Library
 
 
 class MainWindow(QWindow):
@@ -22,6 +23,7 @@ class MainWindow(QWindow):
     self.layout = QVBoxLayout()
     self.setLayout(self.layout)
     self.layout.setContentsMargins(0, 0, 0, 0)
+    self.layout.addWidget(Library(self), alignment=Qt.AlignmentFlag.AlignLeft)
     self.layout.addWidget(MediaInterface(self),
                           alignment=Qt.AlignmentFlag.AlignBottom)
 
