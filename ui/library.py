@@ -30,20 +30,20 @@ class Library(QFrame):
     self.layout.addWidget(MenuContainer(self), 
                           alignment=Qt.AlignmentFlag.AlignTop)
     
-    self.lib_label = QLabel("Library", objectName = "lib_label")
-    self.layout.addWidget(self.lib_label)
+    self.lib_label = QLabel("LIBRARY", objectName = "lib_label")
+    self.layout.addWidget(self.lib_label, alignment=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
 
 class MenuContainer(QFrame):
   def __init__(self, parent) -> None:
     super().__init__(parent)
 
-    self.size = int(parent.parent.screen_size[0] * 0.018)
+    self.size = int(parent.parent.screen_size[0] * 0.027)
     self.wmargins = int(parent.parent.screen_size[0] * 0.012)
 
-    self.layout = QHBoxLayout()
-    self.layout.setContentsMargins(self.wmargins, 
-                                   int(parent.parent.screen_size[0]*0.006), 
-                                   self.wmargins, 0)
+    self.layout = QVBoxLayout()
+    #self.layout.setContentsMargins(self.wmargins, 
+     #                              int(parent.parent.screen_size[0]*0.006), 
+    #                               self.wmargins, 0)
     self.setLayout(self.layout)
 
     self.home_btn = QPushButton(objectName = "home_btn",

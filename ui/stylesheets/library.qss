@@ -11,4 +11,5 @@ QLabel#lib_label {
   color: white;
   font-family: "RubikMonoOne";
   font-weight: 700;
+  font-size: 15px;
 }
