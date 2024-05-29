@@ -1,6 +1,5 @@
 from PyQt6.QtWidgets import (
   QFrame, 
-  QHBoxLayout,
   QPushButton,
   QVBoxLayout,
   QLabel 
@@ -27,11 +26,11 @@ class Library(QFrame):
     self.layout.setContentsMargins(0, 0, 0, 0)
     self.setLayout(self.layout)
 
-    self.layout.addWidget(MenuContainer(self), 
-                          alignment=Qt.AlignmentFlag.AlignTop)
+    #self.layout.addWidget(MenuContainer(self), 
+    #                      alignment=Qt.AlignmentFlag.AlignTop)
     
-    self.lib_label = QLabel("LIBRARY", objectName = "lib_label")
-    self.layout.addWidget(self.lib_label, alignment=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
+    #self.lib_label = QLabel("LIBRARY", objectName = "lib_label")
+    #self.layout.addWidget(self.lib_label, alignment=Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop)
 
 class MenuContainer(QFrame):
   def __init__(self, parent) -> None:

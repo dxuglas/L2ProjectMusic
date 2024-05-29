@@ -1,0 +1,3 @@
+QPushButton#cover {
+  background-color: gray;
+}
