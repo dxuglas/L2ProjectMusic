@@ -1,3 +1,37 @@
-QPushButton#cover {
-  background-color: gray;
+@font-face {
+  font-family: 'RubikMonoOne';
+  src: url(assets/fonts/RubikMonoOne-Regular.ttf)
+}
+
+QPushButton {
+  background-color: rgb(217, 217, 217);
+  border-radius: 0
+}
+
+QLabel#name {
+  color: black;
+  font-family: "RubikMonoOne";
+}
+
+QScrollArea {
+  border: 0px;
+  background-color: transparent;
+}
+
+QFrame#SongSelector {
+  background-color: white;
+}
+
+QFrame#SongPanel {
+  background-color: white;
+}
+
+QFrame#scroll_area {
+  background-color: white;
+}
+
+QScrollBar:vertical {
+  background: transparent;
+  width: 0px;
+  margin: 0px;
 }
