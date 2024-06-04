@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import (
   QFrame, 
   QHBoxLayout,
   QVBoxLayout,
+  QGridLayout,
   QPushButton,
   QLabel,
   QScrollArea
@@ -66,6 +67,7 @@ class SongSelector(QFrame):
 
     self.scroll_area = QFrame(objectName = "scroll_area")
     self.scroll_area.layout = QVBoxLayout()
+    self.scroll_area.layout.setContentsMargins(0,0,0,0)
     self.scroll_area.setLayout(self.scroll_area.layout)
 
     for i in range(8):
@@ -89,13 +91,34 @@ class SongPanel(QFrame):
     self.layout = QHBoxLayout()
     self.setLayout(self.layout)
 
-    self.size = int(self.size_parent.screen_size[0] * 0.005)
+    self.size = int(self.size_parent.screen_size[0] * 0.01)
+    self.width = int(self.size_parent.screen_size[0] / 2.3)-50
+    self.setMinimumWidth(self.width)
 
     self.art = QPushButton(objectName = "art",
                            icon = QIcon(r"ui\assets\placeholder.svg"),
                            flat = True,  
                            iconSize = QSize(self.size*2, self.size*2))
     self.art.setFixedSize(QSize(self.size*3, self.size*3))
-    self.layout.addWidget(self.art)
+    self.layout.addWidget(self.art, alignment = Qt.AlignmentFlag.AlignLeft)
+
+    self.text_layout = QGridLayout()
+
+    self.name_layout = QVBoxLayout()
+    self.song_name = QLabel("Song Name", objectName = "song_name")
+    self.artist_name = QLabel("Artist Name", objectName = "artist_name")
+
+    self.name_layout.addWidget(self.song_name)
+    self.name_layout.addWidget(self.artist_name)
+
+    self.text_layout.addLayout(self.name_layout, 0, 0, alignment=Qt.AlignmentFlag.AlignLeft)
+
+    self.album_name = QLabel("Album Name", objectName = "album_name")
+    self.song_length = QLabel("0:00", objectName = "song_length")
+    
+    self.text_layout.addWidget(self.album_name, 0, 1)
+    self.text_layout.addWidget(self.song_length, 0, 2, alignment=Qt.AlignmentFlag.AlignRight)
+    
+    self.layout.addLayout(self.text_layout)
 
     

@@ -3,8 +3,13 @@
   src: url(assets/fonts/RubikMonoOne-Regular.ttf)
 }
 
-QPushButton {
+QPushButton#cover {
   background-color: rgb(217, 217, 217);
+  border-radius: 0
+}
+
+QPushButton#art {
+  background-color: white;
   border-radius: 0
 }
 
@@ -23,7 +28,7 @@ QFrame#SongSelector {
 }
 
 QFrame#SongPanel {
-  background-color: white;
+  background-color: rgb(217, 217, 217);
 }
 
 QFrame#scroll_area {
