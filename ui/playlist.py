@@ -88,11 +88,11 @@ class SongPanel(QFrame):
 
     self.setObjectName("SongPanel")
 
-    self.layout = QHBoxLayout()
+    self.layout = QGridLayout()
     self.setLayout(self.layout)
 
     self.size = int(self.size_parent.screen_size[0] * 0.01)
-    self.width = int(self.size_parent.screen_size[0] / 2.3)-50
+    self.width = int(self.size_parent.screen_size[0] / 2.3)
     self.setMinimumWidth(self.width)
 
     self.art = QPushButton(objectName = "art",
@@ -100,9 +100,7 @@ class SongPanel(QFrame):
                            flat = True,  
                            iconSize = QSize(self.size*2, self.size*2))
     self.art.setFixedSize(QSize(self.size*3, self.size*3))
-    self.layout.addWidget(self.art, alignment = Qt.AlignmentFlag.AlignLeft)
-
-    self.text_layout = QGridLayout()
+    self.layout.addWidget(self.art, 0, 0)
 
     self.name_layout = QVBoxLayout()
     self.song_name = QLabel("Song Name", objectName = "song_name")
@@ -111,14 +109,12 @@ class SongPanel(QFrame):
     self.name_layout.addWidget(self.song_name)
     self.name_layout.addWidget(self.artist_name)
 
-    self.text_layout.addLayout(self.name_layout, 0, 0, alignment=Qt.AlignmentFlag.AlignLeft)
+    self.layout.addLayout(self.name_layout, 0, 1)
 
     self.album_name = QLabel("Album Name", objectName = "album_name")
     self.song_length = QLabel("0:00", objectName = "song_length")
     
-    self.text_layout.addWidget(self.album_name, 0, 1)
-    self.text_layout.addWidget(self.song_length, 0, 2, alignment=Qt.AlignmentFlag.AlignRight)
-    
-    self.layout.addLayout(self.text_layout)
+    self.layout.addWidget(self.album_name, 0, 2)
+    self.layout.addWidget(self.song_length, 0, 3)
 
     
