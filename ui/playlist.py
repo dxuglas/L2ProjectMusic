@@ -78,6 +78,7 @@ class SongSelector(QFrame):
                                 verticalScrollBarPolicy=Qt.ScrollBarPolicy.ScrollBarAlwaysOn,
                                 horizontalScrollBarPolicy=Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
     self.scroller.setWidget(self.scroll_area)
+    self.scroller.setMinimumWidth(int(self.size_parent.screen_size[0] / 2.3)-50)
     self.layout.addWidget(self.scroller)
 
 
