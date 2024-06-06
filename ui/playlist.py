@@ -5,14 +5,16 @@ from PyQt6.QtWidgets import (
   QGridLayout,
   QPushButton,
   QLabel,
-  QScrollArea
+  QScrollArea,
+  QSizePolicy
 )
 from PyQt6.QtCore import (
   QSize,
   Qt
 )
 from PyQt6.QtGui import (
-  QIcon
+  QIcon,
+  QResizeEvent
 )
 
 class PlaylistPage(QFrame):
@@ -20,13 +22,22 @@ class PlaylistPage(QFrame):
     super().__init__(parent)
     self.size_parent = parent.parent
 
+    self.setObjectName("PlaylistPage")
     self.setStyleSheet(open(r"ui\stylesheets\playlist.qss").read())
 
     self.layout = QVBoxLayout()
     self.setLayout(self.layout)
 
-    self.layout.addWidget(InfoPanel(self))
-    self.layout.addWidget(SongSelector(self))
+    self.info = InfoPanel(self)
+    self.selector = SongSelector(self)
+    self.layout.addWidget(self.info)
+    self.layout.addWidget(self.selector)
+  
+  def resizeEvent(self, a0: QResizeEvent | None) -> None:
+    self.setFixedHeight(int(self.size_parent.get_window_size()[1] - 100))
+    self.info.resizeEvent(a0)
+    self.selector.resizeEvent(a0)
+    return super().resizeEvent(a0)
 
 
 class InfoPanel(QFrame):
@@ -48,38 +59,44 @@ class InfoPanel(QFrame):
 
     self.layout.addSpacing(int(self.size/8))
 
-    self.name = QLabel("Playlist Name #1", objectName = "name")
+    self.name = QLabel("Playlist Name #1", objectName = "playlist_name")
     self.font = self.name.font()
     self.font.setPointSize(int(self.size*0.5))
     self.name.setFont(self.font)
     self.layout.addWidget(self.name)
 
+  def resizeEvent(self, a0: QResizeEvent | None) -> None:
+    self.setFixedHeight(self.height())
+    print(self.height())
+    return super().resizeEvent(a0)
 
-class SongSelector(QFrame):
-  def __init__(self, parent):
+
+class SongSelector(QScrollArea):
+  def __init__(self, parent) -> None:
     super().__init__(parent)
+    self.parent = parent
     self.size_parent = parent.size_parent
-
     self.setObjectName("SongSelector")
 
-    self.layout = QVBoxLayout()
-    self.setLayout(self.layout)
+    self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+    self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+
+    self.width = int(self.size_parent.screen_size[0] / 2.3)-30
+    self.setMinimumWidth(self.width)
 
     self.scroll_area = QFrame(objectName = "scroll_area")
-    self.scroll_area.layout = QVBoxLayout()
-    self.scroll_area.layout.setContentsMargins(0,0,0,0)
-    self.scroll_area.setLayout(self.scroll_area.layout)
 
-    for i in range(8):
-      self.scroll_area.layout.addWidget(SongPanel(self))
+    self.layout = QVBoxLayout()
+    self.scroll_area.setLayout(self.layout)
 
-    self.scroller = QScrollArea(objectName="scroller",
-                                widgetResizable=True,
-                                verticalScrollBarPolicy=Qt.ScrollBarPolicy.ScrollBarAlwaysOn,
-                                horizontalScrollBarPolicy=Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-    self.scroller.setWidget(self.scroll_area)
-    self.scroller.setMinimumWidth(int(self.size_parent.screen_size[0] / 2.3)-50)
-    self.layout.addWidget(self.scroller)
+    for i in range(14):
+      self.layout.addWidget(SongPanel(self))
+
+    self.setWidget(self.scroll_area)
+
+  def resizeEvent(self, a0: QResizeEvent | None) -> None:
+    self.setFixedHeight(self.parent.height() - self.parent.info.height())
+    return super().resizeEvent(a0)
 
 
 class SongPanel(QFrame):
@@ -92,8 +109,8 @@ class SongPanel(QFrame):
     self.layout = QGridLayout()
     self.setLayout(self.layout)
 
-    self.size = int(self.size_parent.screen_size[0] * 0.01)
-    self.width = int(self.size_parent.screen_size[0] / 2.3)
+    self.size = int(self.size_parent.screen_size[0] * 0.008)
+    self.width = int(self.size_parent.screen_size[0] / 2.3-50)
     self.setMinimumWidth(self.width)
 
     self.art = QPushButton(objectName = "art",
@@ -115,7 +132,9 @@ class SongPanel(QFrame):
     self.album_name = QLabel("Album Name", objectName = "album_name")
     self.song_length = QLabel("0:00", objectName = "song_length")
     
-    self.layout.addWidget(self.album_name, 0, 2)
-    self.layout.addWidget(self.song_length, 0, 3)
+    self.layout.addWidget(self.album_name, 0, 2, 
+                          alignment=Qt.AlignmentFlag.AlignCenter)
+    self.layout.addWidget(self.song_length, 0, 3, 
+                          alignment=Qt.AlignmentFlag.AlignRight)
 
     

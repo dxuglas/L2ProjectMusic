@@ -13,7 +13,27 @@ QPushButton#art {
   border-radius: 0
 }
 
-QLabel#name {
+QLabel#playlist_name {
+  color: black;
+  font-family: "RubikMonoOne";
+}
+
+QLabel#song_name {
+  color: black;
+  font-family: "RubikMonoOne";
+}
+
+QLabel#artist_name {
+  color: black;
+  font-family: "RubikMonoOne";
+}
+
+QLabel#album_name {
+  color: black;
+  font-family: "RubikMonoOne";
+}
+
+QLabel#song_length {
   color: black;
   font-family: "RubikMonoOne";
 }

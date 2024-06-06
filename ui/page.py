@@ -1,6 +1,6 @@
+from PyQt6.QtGui import QResizeEvent
 from PyQt6.QtWidgets import (
   QFrame, 
-  QHBoxLayout,
   QVBoxLayout
 )
 
@@ -20,5 +20,10 @@ class PageHandler(QFrame):
     
     self.layout = QVBoxLayout()
 
-    self.layout.addWidget(PlaylistPage(self))
+    self.page = PlaylistPage(self)
+    self.layout.addWidget(self.page)
+
+  def resizeEvent(self, a0: QResizeEvent | None) -> None: 
+    self.page.resizeEvent(a0) 
+    return super().resizeEvent(a0)
 

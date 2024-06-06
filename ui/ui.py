@@ -51,6 +51,9 @@ class MainWindow(QWindow):
     screen_size = self.parent.primaryScreen().size()
     
     return [screen_size.width(), screen_size.height()]
+  
+  def get_window_size(self):
+    return [self.width(), self.height()]
     
     
 class TitleBar(QTitleBar):
