@@ -2,27 +2,44 @@ QFrame#MediaInterface {
   background-color: black;
 }
 
-
-QSlider::handle:horizontal#bar {
+QSlider::handle:horizontal {
   background: transparent;
   width: 12;
-  margin: -4px 0;
 }
 
-QSlider::handle:horizontal:hover#bar {
-  background: white;
+QSlider::handle:horizontal:hover {
+  background: gray;
   width: 12;
-  margin: -4px 0;
 }
 
-QSlider::groove:horizontal#bar {
+QSlider::groove:horizontal {
   background: transparent;
 }
 
-QSlider::add-page:horizontal#bar {
+QSlider::add-page:horizontal {
   background: rgb(77, 77, 77);
 }
 
-QSlider::sub-page:horizontal#bar {
+QSlider::sub-page:horizontal:enabled {
   background: white;
+}
+
+QSlider::sub-page:horizontal:disabled {
+  background: gray;
+}
+
+
+QPushButton#art {
+  background-color: white;
+  border-radius: 0
+}
+
+QLabel#song_name {
+  color: white;
+  font-family: "RubikMonoOne";
+}
+
+QLabel#artist_name {
+  color: white;
+  font-family: "RubikMonoOne";
 }
