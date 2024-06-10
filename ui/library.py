@@ -21,7 +21,7 @@ class Library(QFrame):
     self.width = int(self.parent.screen_size[0]*0.066)
     self.setFixedWidth(self.width)
     self.setMinimumHeight(int(self.parent.screen_size[0]/2.774))
-    self.setMinimumHeight(2000)
+    self.setMinimumHeight(1000)
 
     self.layout = QVBoxLayout()
     self.layout.setContentsMargins(0, 0, 0, 0)

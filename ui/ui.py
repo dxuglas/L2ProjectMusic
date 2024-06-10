@@ -14,7 +14,7 @@ from .page import PageHandler
 
 
 class MainWindow(QWindow):
-  def __init__(self, parent):
+  def __init__(self, parent) -> None:
     super().__init__()
 
     self.parent = parent
@@ -36,8 +36,13 @@ class MainWindow(QWindow):
 
     self.center_layout = QHBoxLayout()
     self.center_layout.setContentsMargins(0, 0, 0, 0)
-    self.center_layout.addWidget(Library(self), alignment= Qt.AlignmentFlag.AlignLeft)
-    self.center_layout.addWidget(PageHandler(self))
+
+    self.library = Library(self)
+    self.center_layout.addWidget(self.library, 
+                                 alignment= Qt.AlignmentFlag.AlignLeft)
+    
+    self.page_handler = PageHandler(self)
+    self.center_layout.addWidget(self.page_handler)
 
     self.media_layout = QHBoxLayout()
     self.media_layout.setContentsMargins(0, 0, 0, 0)
@@ -54,8 +59,16 @@ class MainWindow(QWindow):
   
   def get_window_size(self):
     return [self.width(), self.height()]
+  
+  def resizeEvent(self, e):
+    self.setStyleSheet(f"""WindowsFramelessWindow {{ background-color: 
+                       qlineargradient(x1:0, y1:0, x2:1, y2:0, stop: 0 black, 
+                       stop: {self.library.width / self.width()} black, 
+                       stop: {self.library.width / self.width() * 1.021} white, 
+                       stop: 1 white) }}""")
+    return super().resizeEvent(e)
     
     
 class TitleBar(QTitleBar):
-  def __init__(self, parent):
+  def __init__(self, parent) -> None:
     super().__init__(parent)

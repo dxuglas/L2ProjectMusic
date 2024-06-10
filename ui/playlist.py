@@ -18,7 +18,7 @@ from PyQt6.QtGui import (
 )
 
 class PlaylistPage(QFrame):
-  def __init__(self, parent):
+  def __init__(self, parent) -> None:
     super().__init__(parent)
     self.size_parent = parent.parent
 
@@ -32,16 +32,17 @@ class PlaylistPage(QFrame):
     self.selector = SongSelector(self)
     self.layout.addWidget(self.info)
     self.layout.addWidget(self.selector)
+
+    self.layout.setContentsMargins(10, 10, 10, 30)
   
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.setFixedHeight(int(self.size_parent.get_window_size()[1] - 100))
-    self.info.resizeEvent(a0)
     self.selector.resizeEvent(a0)
     return super().resizeEvent(a0)
 
 
 class InfoPanel(QFrame):
-  def __init__(self, parent):
+  def __init__(self, parent) -> None:
     super().__init__(parent)
     self.size_parent = parent.size_parent
 
@@ -67,7 +68,6 @@ class InfoPanel(QFrame):
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.setFixedHeight(self.height())
-    print(self.height())
     return super().resizeEvent(a0)
 
 
@@ -88,6 +88,7 @@ class SongSelector(QScrollArea):
 
     self.layout = QVBoxLayout()
     self.scroll_area.setLayout(self.layout)
+    self.layout.setContentsMargins(10, 0, 10, 0)
 
     for i in range(14):
       self.layout.addWidget(SongPanel(self))
@@ -95,12 +96,12 @@ class SongSelector(QScrollArea):
     self.setWidget(self.scroll_area)
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
-    self.setFixedHeight(self.parent.height() - self.parent.info.height())
+    self.setFixedHeight(self.parent.height() - self.parent.info.height() - 65)
     return super().resizeEvent(a0)
 
 
 class SongPanel(QFrame):
-  def __init__(self, parent):
+  def __init__(self, parent) -> None:
     super().__init__(parent)
     self.size_parent = parent.size_parent
 
@@ -136,5 +137,3 @@ class SongPanel(QFrame):
                           alignment=Qt.AlignmentFlag.AlignCenter)
     self.layout.addWidget(self.song_length, 0, 3, 
                           alignment=Qt.AlignmentFlag.AlignRight)
-
-    

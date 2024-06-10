@@ -8,7 +8,7 @@ from .playlist import PlaylistPage
 
 
 class PageHandler(QFrame):
-  def __init__(self, parent):
+  def __init__(self, parent) -> None:
     super().__init__(parent)
     self.parent = parent
 

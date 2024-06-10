@@ -22,15 +22,25 @@ class MediaInterface(QFrame):
 
     self.setFixedHeight(int(self.parent.screen_size[0] * 0.046))
 
-    self.layout = QVBoxLayout()
-    self.layout.setContentsMargins(0, int(self.parent.screen_size[0] * 0.007), 
-                                   0, int(self.parent.screen_size[0] * 0.007))
+    self.layout = QHBoxLayout()
+    self.layout.setContentsMargins(0, 0, 0, 0)
     self.setLayout(self.layout)
 
-    self.layout.addWidget(MediaControls(self), 
-                          alignment = Qt.AlignmentFlag.AlignCenter)
-    self.layout.addWidget(ProgressBar(self), 
-                          alignment = Qt.AlignmentFlag.AlignCenter)
+    self.controls_layout = QVBoxLayout()
+    self.controls_layout.setContentsMargins(0, int(self.parent.screen_size[0] 
+                                                   * 0.007),  0, 
+                                               int(self.parent.screen_size[0] 
+                                                   * 0.007))
+
+    self.controls_layout.addWidget(MediaControls(self), 
+                                   alignment = Qt.AlignmentFlag.AlignCenter)
+    self.controls_layout.addWidget(ProgressBar(self), 
+                                   alignment = Qt.AlignmentFlag.AlignCenter)
+    
+    self.controls_container = QFrame()
+    self.controls_container.setLayout(self.controls_layout)
+    self.layout.addWidget(self.controls_container, alignment=Qt.AlignmentFlag.AlignCenter)
+    self.layout.addWidget(VolumeControls(self), alignment=Qt.AlignmentFlag.AlignRight)
 
 
 class MediaControls(QFrame):
@@ -114,3 +124,23 @@ class ProgressBar(QFrame):
     self.bar = QSlider(Qt.Orientation.Horizontal, objectName="bar")
     self.bar.setRange(0, 100)
     self.layout.addWidget(self.bar)
+
+class VolumeControls(QFrame):
+  def __init__ (self, parent) -> None:
+    super().__init__(parent)
+
+    self.setObjectName("VolumeControls")
+
+    self.layout = QHBoxLayout()
+    self.layout.setContentsMargins(0, 0, 0, 0)
+    self.setLayout(self.layout)
+
+    self.btn_size = int(parent.parent.screen_size[0] * 0.02)
+    self.mute_btn = QPushButton(objectName = "mute_btn",
+                                   icon = QIcon(r"ui\assets\mute_off_2.svg"), 
+                                   flat = True, 
+                                   size = QSize(self.btn_size, self.btn_size), 
+                                   iconSize = QSize(self.btn_size, 
+                                                    self.btn_size))
+
+    self.layout.addWidget(self.mute_btn)
