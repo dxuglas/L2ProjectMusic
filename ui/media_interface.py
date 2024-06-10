@@ -115,7 +115,7 @@ class SongInfo(QFrame):
   def __init__(self, parent) -> None:
     super().__init__(parent) 
 
-    self.setObjectName("SongInfo")
+    self.setObjectName("SongInfo")  
 
     self.size = int(parent.parent.screen_size[0] * 0.01)
 
@@ -130,7 +130,7 @@ class SongInfo(QFrame):
     self.layout.addWidget(self.art, 0, 0)
 
     self.name_layout = QVBoxLayout()
-    self.name_layout.setContentsMargins(5, 10, 0, 10)
+    self.name_layout.setContentsMargins(5, int(self.size/2), 0,  int(self.size/2))
     self.song_name = QLabel("Song Name", objectName = "song_name")
     self.artist_name = QLabel("Artist Name", objectName = "artist_name")
 
