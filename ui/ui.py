@@ -27,13 +27,13 @@ class MainWindow(QWindow):
     self.screen_size = self.get_screen_size()
     self.setMinimumSize(int(self.screen_size[0]/2), 
                       int(self.screen_size[0]/2.82))
-    self.move(int(self.screen_size[0] / 4), 
-              int((self.screen_size[1] - int(self.screen_size[0]/2.82))/2))
-    
+    self.setGeometry(int(self.screen_size[0] / 4), 
+                         int((self.screen_size[1] - int(self.screen_size[0]/2.82))/2),
+                         int(self.screen_size[0]/2), int(self.screen_size[0]/2.82))
+
     self.layout = QVBoxLayout()
     self.setLayout(self.layout)
     self.layout.setContentsMargins(0, self.titleBar.frameGeometry().height(), 0, 0)
-
     self.center_layout = QHBoxLayout()
     self.center_layout.setContentsMargins(0, 0, 0, 0)
 

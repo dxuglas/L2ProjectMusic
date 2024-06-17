@@ -33,7 +33,7 @@ class PlaylistPage(QFrame):
     self.layout.addWidget(self.info)
     self.layout.addWidget(self.selector)
 
-    self.layout.setContentsMargins(10, 10, 10, 30)
+    self.layout.setContentsMargins(10, 10, 10, 0)
   
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.setFixedHeight(int(self.size_parent.get_window_size()[1] - 100))
@@ -96,7 +96,7 @@ class SongSelector(QScrollArea):
     self.setWidget(self.scroll_area)
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
-    self.setFixedHeight(int((self.parent.height() - self.parent.info.height()) * 0.87))
+    self.setFixedHeight(int((self.parent.height() - self.parent.info.height()) * 0.94))
     print(self.height())
     return super().resizeEvent(a0)
 
