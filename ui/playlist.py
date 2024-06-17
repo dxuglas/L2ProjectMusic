@@ -96,7 +96,8 @@ class SongSelector(QScrollArea):
     self.setWidget(self.scroll_area)
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
-    self.setFixedHeight(self.parent.height() - self.parent.info.height() - 65)
+    self.setFixedHeight(int((self.parent.height() - self.parent.info.height()) * 0.87))
+    print(self.height())
     return super().resizeEvent(a0)
 
 
