@@ -18,6 +18,8 @@ class PageHandler(QFrame):
     self.width = int(parent.screen_size[0] - int(parent.screen_size[0]*0.066))
     self.setMinimumWidth(self.width)
     
+    self.setContentsMargins(0, 0, 0, 0)
+
     self.layout = QVBoxLayout()
 
     self.page = PlaylistPage(self)

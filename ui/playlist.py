@@ -57,7 +57,7 @@ class InfoPanel(QFrame):
                              iconSize = QSize(self.size*2, self.size*2))
     self.cover.setFixedSize(QSize(self.size*3, self.size*3))
     self.layout.addWidget(self.cover)
-
+    self.layout.setContentsMargins(0, 0, 0, 0)
     self.layout.addSpacing(int(self.size/8))
 
     self.name = QLabel("Playlist Name #1", objectName = "playlist_name")
@@ -88,7 +88,7 @@ class SongSelector(QScrollArea):
 
     self.layout = QVBoxLayout()
     self.scroll_area.setLayout(self.layout)
-    self.layout.setContentsMargins(10, 0, 10, 0)
+    self.layout.setContentsMargins(0, 0, 10, 10)
 
     for i in range(14):
       self.layout.addWidget(SongPanel(self))
@@ -96,7 +96,7 @@ class SongSelector(QScrollArea):
     self.setWidget(self.scroll_area)
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
-    self.setFixedHeight(int((self.parent.height() - self.parent.info.height()) * 0.94))
+    self.setFixedHeight(int((self.parent.height() - self.parent.info.height()) * 0.85))
     print(self.height())
     return super().resizeEvent(a0)
 
