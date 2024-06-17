@@ -88,7 +88,7 @@ class SongSelector(QScrollArea):
 
     self.layout = QVBoxLayout()
     self.scroll_area.setLayout(self.layout)
-    self.layout.setContentsMargins(0, 0, 10, 10)
+    self.layout.setContentsMargins(0, 0, 10, 0)
 
     for i in range(14):
       self.layout.addWidget(SongPanel(self))
