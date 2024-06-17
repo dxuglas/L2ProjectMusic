@@ -22,10 +22,10 @@ class PageHandler(QFrame):
 
     self.layout = QVBoxLayout()
 
-    self.page = PlaylistPage(self)
-    self.layout.addWidget(self.page)
+    #self.page = PlaylistPage(self)
+    #self.layout.addWidget(self.page)
 
-  def resizeEvent(self, a0: QResizeEvent | None) -> None: 
-    self.page.resizeEvent(a0) 
-    return super().resizeEvent(a0)
+  # def resizeEvent(self, a0: QResizeEvent | None) -> None: 
+  #   self.page.resizeEvent(a0) 
+  #   return super().resizeEvent(a0)
 
