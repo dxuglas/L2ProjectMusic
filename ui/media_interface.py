@@ -13,6 +13,8 @@ from PyQt6.QtCore import (
 )
 from PyQt6.QtGui import QIcon
 
+from .popups.playlist_creation import CreationPopup
+
 
 class MediaInterface(QFrame):
   def __init__(self, parent) -> None:
@@ -86,6 +88,7 @@ class MediaControls(QFrame):
                                     flat = True, 
                                     size = QSize(self.height, self.height), 
                                     iconSize = QSize(self.height, self.height))
+    self.fw_track_btn.clicked.connect(self.fw_track)
     
     self.loop_btn = QPushButton(objectName = "loop_btn",
                                 icon = QIcon(r"ui\assets\loop.svg"), 
@@ -110,6 +113,9 @@ class MediaControls(QFrame):
       self.pause_play_btn.setIcon(QIcon(r"ui\assets\play.svg"))
       self.pause_play_state = True
 
+  def fw_track(self):
+    self.popup = CreationPopup()
+    self.popup.show()
       
 class SongInfo(QFrame):
   def __init__(self, parent) -> None:
