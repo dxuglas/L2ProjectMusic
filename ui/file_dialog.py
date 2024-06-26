@@ -10,3 +10,6 @@ class ArtSelector(QFileDialog):
 
     self.setModal(True)
     self.setOption(QFileDialog.ReadOnly, True)
+
+  def get_file(self):
+    return self.getOpenFileName(filter=IMAGE_EXTS)
