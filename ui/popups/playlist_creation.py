@@ -65,7 +65,7 @@ class CreationPopup(QDialog):
     self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
 
   def change_icon(self):
-    self.icon = ArtSelector.get_file()
+    self.icon = ArtSelector().get_file()
     
     if self.icon[0] not in (None, ''):
       self.icon = self.icon[0]
