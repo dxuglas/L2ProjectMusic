@@ -13,3 +13,18 @@ QLabel#lib_label {
   font-weight: 700;
   font-size: 15px;
 }
+
+QFrame#playlists {
+  background-color: black;
+}
+
+QScrollArea {
+  background-color: black;
+  border: 0px;
+}
+
+QScrollBar:vertical {
+  background: transparent;
+  width: 0px;
+  margin: 0px;
+}

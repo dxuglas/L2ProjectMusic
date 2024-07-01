@@ -1,15 +1,15 @@
 import json
 import os
 
-SAVE_DIRECTORY = os.path.expanduser(f'~/AppData/Local/Musi')
+DIRECTORY = os.path.expanduser(f'~/AppData/Local/Musi')
 
-if not os.path.exists(SAVE_DIRECTORY):
-  os.mkdir(SAVE_DIRECTORY)
+if not os.path.exists(DIRECTORY):
+  os.mkdir(DIRECTORY)
 
 class SaveFile():
   def __init__(self, name, data, path) -> None:
 
-    self.path = os.path.expanduser(f'{SAVE_DIRECTORY}/{path}')
+    self.path = os.path.expanduser(f'{DIRECTORY}/{path}')
 
     if not os.path.exists(self.path):
       os.mkdir(self.path)

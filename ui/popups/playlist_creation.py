@@ -63,6 +63,7 @@ class CreationPopup(QDialog):
     self.layout.setContentsMargins(30, 30, 30, 30)
 
     self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+    self.setFocus()
 
   def change_icon(self):
     self.icon = ArtSelector().get_file()
