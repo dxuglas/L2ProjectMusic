@@ -34,6 +34,9 @@ class PlaylistPage(QFrame):
     self.layout.addWidget(self.selector)
 
     self.layout.setContentsMargins(10, 10, 10, 0)
+
+  def update(self, data):
+    self.info.update(data)
   
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.setFixedHeight(int(self.size_parent.get_window_size()[1] - 100))
@@ -56,6 +59,7 @@ class InfoPanel(QFrame):
                              flat = True,  
                              iconSize = QSize(self.size*2, self.size*2))
     self.cover.setFixedSize(QSize(self.size*3, self.size*3))
+    
     self.layout.addWidget(self.cover)
     self.layout.setContentsMargins(0, 0, 0, 0)
     self.layout.addSpacing(int(self.size/8))
@@ -65,6 +69,10 @@ class InfoPanel(QFrame):
     self.font.setPointSize(int(self.size*0.5))
     self.name.setFont(self.font)
     self.layout.addWidget(self.name)
+
+  def update(self, data):
+    self.cover.setIcon(QIcon(data["icon"]))
+    self.name.setText(data["name"])
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.setFixedHeight(self.height())

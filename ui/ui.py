@@ -60,6 +60,9 @@ class MainWindow(QWindow):
   def get_window_size(self):
     return [self.width(), self.height()]
   
+  def update_page(self, data):
+    self.page_handler.update_page(data)
+  
   def resizeEvent(self, e):
     self.setStyleSheet(f"""WindowsFramelessWindow {{ background-color: 
                        qlineargradient(x1:0, y1:0, x2:1, y2:0, stop: 0 black, 

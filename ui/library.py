@@ -13,6 +13,7 @@ from PyQt6.QtCore import (
 from PyQt6.QtGui import QIcon
 
 from file_handler.load import Playlists
+from .playlist import PlaylistPage
 
 class Library(QFrame):
   def __init__(self, parent) -> None:
@@ -64,10 +65,18 @@ class PlaylistButton(QPushButton):
   def __init__(self, parent, playlist) -> None:
     super().__init__(parent)
 
+    self.playlist = playlist
+
     self.setIcon(QIcon(playlist["icon"]))
     self.setIconSize(QSize(60, 60))
     self.setFixedSize(60, 60)
     self.setFlat(True)
+
+    self.window = self.window()
+    self.clicked.connect(self.load_playlist)
+
+  def load_playlist(self):
+    self.window.update_page(self.playlist)
 
 class PlaylistScroller(QScrollArea):
   def __init__(self, parent) -> None:
