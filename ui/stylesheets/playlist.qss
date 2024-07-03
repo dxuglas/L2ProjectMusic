@@ -3,60 +3,19 @@
   src: url(assets/fonts/RubikMonoOne-Regular.ttf)
 }
 
-QPushButton#cover {
-  background-color: rgb(217, 217, 217);
-  border-radius: 0
-}
-
 QPushButton#art {
-  background-color: white;
-  border-radius: 0
-}
-
-QLabel#playlist_name {
-  color: black;
-  font-family: "RubikMonoOne";
-}
-
-QLabel#song_name {
-  color: black;
-  font-family: "RubikMonoOne";
-}
-
-QLabel#artist_name {
-  color: black;
-  font-family: "RubikMonoOne";
-}
-
-QLabel#album_name {
-  color: black;
-  font-family: "RubikMonoOne";
-}
-
-QLabel#song_length {
-  color: black;
-  font-family: "RubikMonoOne";
-}
-
-QScrollArea {
-  border: 0px;
-  background-color: transparent;
-}
-
-QFrame#SongSelector {
-  background-color: white;
-}
-
-QFrame#SongPanel {
   background-color: rgb(217, 217, 217);
+  border: 0px
 }
 
-QFrame#scroll_area {
-  background-color: white;
+QPushButton#name {
+  font-family: "RubikMonoOne";
 }
 
-QScrollBar:vertical {
-  background: transparent;
-  width: 0px;
-  margin: 0px;
+QFrame#PlaylistPage {
+  background-color: yellow;
+}
+
+QFrame#HeaderPanel {
+  background-color: pink;
 }

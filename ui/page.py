@@ -1,7 +1,7 @@
-from PyQt6.QtGui import QResizeEvent
 from PyQt6.QtWidgets import (
   QFrame, 
   QVBoxLayout,
+  QSizePolicy
 )
 
 from .playlist import PlaylistPage
@@ -10,25 +10,19 @@ from .playlist import PlaylistPage
 class PageHandler(QFrame):
   def __init__(self, parent) -> None:
     super().__init__(parent)
-    self.parent = parent
-
     self.setObjectName("PageHandler")
     self.setStyleSheet(open(r"ui\stylesheets\page.qss").read())
-
-    self.width = int(parent.screen_size[0] - int(parent.screen_size[0]*0.066))
-    self.setMinimumWidth(self.width)
+    self.setSizePolicy(QSizePolicy.Policy.Expanding,
+                       QSizePolicy.Policy.Expanding)
     
-    self.setContentsMargins(0, 0, 0, 0)
-
     self.layout = QVBoxLayout()
+    self.layout.setContentsMargins(0, 0, 0, 0)
+    self.setLayout(self.layout)
 
     self.page = PlaylistPage(self)
     self.layout.addWidget(self.page)
 
   def update_page(self, data):
-    self.page.update(data)
-
-  def resizeEvent(self, a0: QResizeEvent | None) -> None: 
-    self.page.resizeEvent(a0) 
-    return super().resizeEvent(a0)
-
+    self.page.deleteLater()
+    self.page = PlaylistPage(self, data)
+    self.layout.addWidget(self.page)
