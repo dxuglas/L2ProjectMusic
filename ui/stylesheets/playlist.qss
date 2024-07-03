@@ -11,11 +11,3 @@ QPushButton#art {
 QPushButton#name {
   font-family: "RubikMonoOne";
 }
-
-QFrame#PlaylistPage {
-  background-color: yellow;
-}
-
-QFrame#HeaderPanel {
-  background-color: pink;
-}

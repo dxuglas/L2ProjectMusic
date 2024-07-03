@@ -1,1 +1,29 @@
-<svg version="1.1" viewBox="0.0 0.0 512.0 512.0" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><clipPath id="p.0"><path d="m0 0l512.0 0l0 512.0l-512.0 0l0 -512.0z" clip-rule="nonzero"/></clipPath><g clip-path="url(#p.0)"><path fill="#000000" fill-opacity="0.0" d="m0 0l512.0 0l0 512.0l-512.0 0z" fill-rule="evenodd"/><path fill="#ffffff" d="m85.13386 195.02362l170.86615 -155.37009l170.86615 155.37009z" fill-rule="evenodd"/><path stroke="#ffffff" stroke-width="1.0" stroke-linejoin="round" stroke-linecap="butt" d="m85.13386 195.02362l170.86615 -155.37009l170.86615 155.37009z" fill-rule="evenodd"/><path fill="#ffffff" d="m85.13386 195.02437l341.7323 0l0 277.3228l-341.7323 0z" fill-rule="evenodd"/><path stroke="#ffffff" stroke-width="1.0" stroke-linejoin="round" stroke-linecap="butt" d="m85.13386 195.02437l341.7323 0l0 277.3228l-341.7323 0z" fill-rule="evenodd"/></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.926968"
+       id="rect1"
+       width="439.94586"
+       height="344.3356"
+       x="36.027069"
+       y="169.05005" />
+    <path
+       style="fill:#ffffff;fill-opacity:1"
+       id="path1"
+       d="m 497.92272,139.67415 -241.92272,0 -241.922722,0 L 135.03864,-69.837071 256,-279.3483 376.96136,-69.837078 Z"
+       transform="matrix(0.90926941,0,0,0.40013226,23.227031,113.16192)" />
+  </g>
+</svg>

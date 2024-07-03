@@ -7,15 +7,13 @@ QFrame#Library {
   background-color: black;
 }
 
-QLabel#lib_label {
-  color: white;
-  font-family: "RubikMonoOne";
-  font-weight: 700;
-  font-size: 15px;
-}
-
 QFrame#playlists {
   background-color: black;
+}
+
+QPushButton#PlaylistButton {
+  background-color: rgb(217,217,217);
+  border: 0px;
 }
 
 QScrollArea {

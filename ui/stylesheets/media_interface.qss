@@ -1,45 +1,25 @@
+@font-face {
+  font-family: 'RubikMonoOne';
+  src: url(assets/fonts/RubikMonoOne-Regular.ttf)
+}
+
 QFrame#MediaInterface {
   background-color: black;
 }
 
-QSlider::handle:horizontal {
-  background: transparent;
-  width: 12;
-}
-
-QSlider::handle:horizontal:hover {
-  background: gray;
-  width: 12;
-}
-
-QSlider::groove:horizontal {
-  background: transparent;
-}
-
-QSlider::add-page:horizontal {
-  background: rgb(77, 77, 77);
-}
-
-QSlider::sub-page:horizontal:enabled {
-  background: white;
-}
-
-QSlider::sub-page:horizontal:disabled {
-  background: gray;
-}
-
-
-QPushButton#art {
-  background-color: white;
+QPushButton#PlayingArt {
+  background-color: rgb(217,217,217);
   border-radius: 0
 }
 
-QLabel#song_name {
+QLabel#name {
   color: white;
   font-family: "RubikMonoOne";
+  font-weight: 700;
 }
 
-QLabel#artist_name {
+QLabel#artist {
   color: white;
   font-family: "RubikMonoOne";
+  font-weight: 700;
 }
