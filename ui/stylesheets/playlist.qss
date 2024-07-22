@@ -3,11 +3,29 @@
   src: url(assets/fonts/RubikMonoOne-Regular.ttf)
 }
 
-QPushButton#art {
+QPushButton#playlist_art {
   background-color: rgb(217, 217, 217);
   border: 0px
 }
 
+QPushButton#song_art {
+  background-color: white;
+  border: 0px;
+}
+
 QPushButton#name {
   font-family: "RubikMonoOne";
+  font-weight: 700;
+  font-size: 40px;
+}
+
+QScrollArea {
+  background-color: white;
+  border: 0px;
+}
+
+QScrollBar:vertical {
+  background: transparent;
+  width: 0px;
+  margin: 0px;
 }

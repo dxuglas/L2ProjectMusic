@@ -26,11 +26,11 @@ class PageHandler(QFrame):
                                    0, 0)
     self.setLayout(self.layout)
 
-    self.page = PlaylistPage(self)
-    #self.layout.addWidget(self.page)
+    self.page = None
 
   def update_page(self, data):
-    self.page.deleteLater()
+    if self.page:
+      self.page.deleteLater()
     self.page = PlaylistPage(self, data)
     self.layout.addWidget(self.page)
 

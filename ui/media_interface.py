@@ -29,8 +29,15 @@ class MediaInterface(QFrame):
     self.layout = QHBoxLayout()
     self.setLayout(self.layout)
 
-    self.layout.addWidget(PlayingInfo(self), 
+    self.playing_info = PlayingInfo(self)
+    self.layout.addWidget(self.playing_info, 
                           alignment = Qt.AlignmentFlag.AlignLeft)
+    
+    self.media_controls = MediaControls(self)
+    self.layout.addWidget(self.media_controls)
+
+    self.volume_controls = VolumeControls(self)
+    self.layout.addWidget(self.volume_controls)
 
 
 class PlayingInfo(QFrame):
@@ -88,3 +95,49 @@ class PlayingArt(QPushButton):
     else:
       self.setIconSize(QSize(int(self.width()/2), int(self.height()/2)))
 
+
+class MediaControls(QFrame):
+  def __init__(self, parent):
+    super().__init__(parent)
+    
+    self.setObjectName("MediaControls")
+    
+    self.layout = QHBoxLayout()
+    self.setLayout(self.layout)
+
+    self.shuffle_btn = QPushButton(objectName = "shuffle_btn", flat = True,
+                                   icon = QIcon(r"ui\assets\shuffle.svg"))
+    
+    self.track_back_btn = QPushButton(objectName = "track_back_btn", 
+                                      flat = True,
+                                      icon = QIcon(r"ui\assets\bw_track.svg"))
+    
+    self.pause_play_btn = QPushButton(objectName = "pause_play_btn", 
+                                      flat = True,
+                                      icon = QIcon(r"ui\assets\pause.svg"))
+    
+    self.track_forward_btn = QPushButton(objectName = "track_forward_btn", 
+                                         flat = True,
+                                         icon = QIcon(r"ui\assets\fw_track.svg"))
+    
+    self.loop_btn = QPushButton(objectName = "loop_btn", flat = True,
+                                  icon = QIcon(r"ui\assets\loop.svg"))
+    
+    self.layout.addWidget(self.shuffle_btn)
+    self.layout.addWidget(self.track_back_btn)
+    self.layout.addWidget(self.pause_play_btn)
+    self.layout.addWidget(self.track_forward_btn)
+    self.layout.addWidget(self.loop_btn)
+
+  def resizeEvent(self, a0: QResizeEvent | None) -> None:
+    self.setFixedWidth(self.width())
+
+
+class VolumeControls(QFrame):
+  def __init__(self, parent):
+    super().__init__(parent)
+    
+    self.setObjectName("VolumeControls")
+
+    self.layout = QHBoxLayout()
+    self.setLayout(self.layout)
