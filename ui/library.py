@@ -68,8 +68,8 @@ class MenuButtons(QFrame):
                                    self.new_btn.width()))
     
   def new(self):
-    self.popup = CreationPopup()
-    self.popup.show(self.window)
+    self.popup = CreationPopup(self.window())
+    self.popup.show()
 
 class PlaylistButton(QPushButton):
   def __init__(self, parent, playlist) -> None:

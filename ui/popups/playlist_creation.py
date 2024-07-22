@@ -10,7 +10,6 @@ from PyQt6.QtWidgets import (
 
 from PyQt6.QtGui import (
   QIcon,
-  QDesk
 )
 
 from PyQt6.QtCore import (
@@ -63,10 +62,10 @@ class CreationPopup(QDialog):
 
     self.layout.setContentsMargins(30, 30, 30, 30)
 
-    # qr = self.frameGeometry()
-    # cp = window.
-    # qr.moveCenter(cp)
-    # dlgNew.move(qr.topLeft())
+    qr = self.frameGeometry()
+    cp = window.frameGeometry().center()
+    qr.moveCenter(cp)
+    self.move(qr.topLeft())
 
     self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
     self.setFocus()
