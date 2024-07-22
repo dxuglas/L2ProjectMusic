@@ -62,10 +62,10 @@ class CreationPopup(QDialog):
 
     self.layout.setContentsMargins(30, 30, 30, 30)
 
-    qr = self.frameGeometry()
-    cp = window.frameGeometry().center()
-    qr.moveCenter(cp)
-    self.move(qr.topLeft())
+    self.geometry = self.frameGeometry()
+    self.center = window.frameGeometry().center()
+    self.geometry.moveCenter(self.center)
+    self.move(self.geometry.topLeft())
 
     self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
     self.setFocus()
