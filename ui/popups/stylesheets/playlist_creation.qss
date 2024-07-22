@@ -17,8 +17,6 @@ QLineEdit {
   color: white;
   border-radius: 0;
   font-family: "RubikMonoOne";
-  font-weight: 650;
-  font-size: 30px;
 }
 
 QLineEdit#desc {

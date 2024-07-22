@@ -79,6 +79,7 @@ class PlaylistButton(QPushButton):
 
     self.setObjectName("PlaylistButton")
 
+    print(playlist["icon"])
     self.setIcon(QIcon(playlist["icon"]))
     self.setFlat(True)
 
