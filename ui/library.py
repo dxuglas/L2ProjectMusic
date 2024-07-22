@@ -47,6 +47,7 @@ class MenuButtons(QFrame):
 
     self.home_btn = QPushButton(objectName = "home_btn", flat = True,
                                 icon = QIcon(r"ui\assets\home.svg"))
+    self.home_btn.clicked.connect(self.home)
     
     self.search_btn = QPushButton(objectName = "search_btn", flat = True,
                                   icon = QIcon(r"ui\assets\search.svg"))
@@ -66,7 +67,10 @@ class MenuButtons(QFrame):
                                     self.search_btn.width()))
     self.new_btn.setIconSize(QSize(self.new_btn.width(),
                                    self.new_btn.width()))
-    
+  
+  def home(self):
+    self.window().update_page(None, "home")
+
   def new(self):
     self.popup = CreationPopup(self.window())
     self.popup.show()
@@ -78,16 +82,13 @@ class PlaylistButton(QPushButton):
     self.playlist = playlist
 
     self.setObjectName("PlaylistButton")
-
-    print(playlist["icon"])
     self.setIcon(QIcon(playlist["icon"]))
     self.setFlat(True)
 
-    self.window = self.window()
     self.clicked.connect(self.load_playlist)
 
   def load_playlist(self):
-    self.window.update_page(self.playlist)
+    self.window().update_page(self.playlist, "playlist")
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.setFixedSize(QSize(self.parent.width(), self.parent.width()))

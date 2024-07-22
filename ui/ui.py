@@ -61,5 +61,5 @@ class MainWindow(QWindow):
   def get_window_size(self):
     return [self.width(), self.height()]
   
-  def update_page(self, data):
-    self.page_handler.update_page(data)
+  def update_page(self, data, type):
+    self.page_handler.update_page(data, type)

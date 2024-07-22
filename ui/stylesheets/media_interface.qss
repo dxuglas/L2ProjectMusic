@@ -8,7 +8,7 @@ QFrame#MediaInterface {
 }
 
 QPushButton#PlayingArt {
-  background-color: rgb(217,217,217);
+  background-color: white;
   border-radius: 0
 }
 

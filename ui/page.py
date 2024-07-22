@@ -28,11 +28,13 @@ class PageHandler(QFrame):
 
     self.page = None
 
-  def update_page(self, data):
+  def update_page(self, data, type):
     if self.page:
       self.page.deleteLater()
-    self.page = PlaylistPage(self, data)
-    self.layout.addWidget(self.page)
+      self.page = None
+    if type == "playlist":
+      self.page = PlaylistPage(self, data)
+      self.layout.addWidget(self.page)
 
 class TitleBar(QTitleBar):
   def __init__(self, parent) -> None:

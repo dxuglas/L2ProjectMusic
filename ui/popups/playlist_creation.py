@@ -29,6 +29,8 @@ class CreationPopup(QDialog):
     self.setLayout(self.layout)
     
     self.icon = r"ui\assets\placeholder.svg"
+    self.name = "Playlist #1"
+
     self.setModal(True)
     self.setObjectName("CreationPopup")
     self.setStyleSheet(open(r"ui\popups\stylesheets\playlist_creation.qss").read())
@@ -80,7 +82,6 @@ class CreationPopup(QDialog):
     self.data = {}
     self.data["name"] = self.info_changer.name_edit.text()
     self.data["description"] = self.info_changer.desc_edit.text()
-    print(self.icon)
     self.data["icon"] = self.icon
 
     CreatePlaylistFile(self.data)
@@ -111,11 +112,14 @@ class InfoChanger(QFrame):
     self.layout.addWidget(self.desc_edit)
 
   def resizeEvent(self, a0: QResizeEvent | None):
-    self.name_edit.setStyleSheet("""QLineEdit {
-                                background-color: black;
-                                color: white;
-                                border-radius: 0;
-                                font-family: "RubikMonoOne";
-                                font-size:x
-                                }""")
+
+    font = self.name_edit.font()
+
+    font.setPointSize(int(self.height()/7))
+    self.name_edit.setFont(font)
+
+    font.setPointSize(int(self.height()/12))
+    self.desc_edit.setFont(font)
+
+
 

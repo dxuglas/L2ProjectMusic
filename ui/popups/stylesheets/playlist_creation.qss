@@ -17,16 +17,14 @@ QLineEdit {
   color: white;
   border-radius: 0;
   font-family: "RubikMonoOne";
-}
-
-QLineEdit#desc {
-  font-size: 20px;
+  font-weight: 800;
 }
 
 QPushButton#control {
   background-color: white;
   color: black;
   border: 1px;
+  padding: 5px;
   font-family: "RubikMonoOne";
   font-weight: 600;
   font-size: 12px;
