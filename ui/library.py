@@ -10,7 +10,9 @@ from PyQt6.QtCore import (
 )
 from PyQt6.QtGui import QIcon, QResizeEvent
 
+from .popups.playlist_creation import CreationPopup
 from file_handler.load import Playlists 
+
 
 class Library(QFrame):
   def __init__(self, parent) -> None:
@@ -48,16 +50,26 @@ class MenuButtons(QFrame):
     
     self.search_btn = QPushButton(objectName = "search_btn", flat = True,
                                   icon = QIcon(r"ui\assets\search.svg"))
+    
+    self.new_btn = QPushButton(objectName = "new_btn", flat = True,
+                               icon=QIcon(r"ui\assets\plus.svg"))
+    self.new_btn.clicked.connect(self.new)
 
     self.layout.addWidget(self.home_btn)
     self.layout.addWidget(self.search_btn)
+    self.layout.addWidget(self.new_btn)
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.home_btn.setIconSize(QSize(self.home_btn.width(), 
                                     self.home_btn.width()))
     self.search_btn.setIconSize(QSize(self.search_btn.width(), 
                                     self.search_btn.width()))
-
+    self.new_btn.setIconSize(QSize(self.new_btn.width(),
+                                   self.new_btn.width()))
+    
+  def new(self):
+    self.popup = CreationPopup()
+    self.popup.show(self.window)
 
 class PlaylistButton(QPushButton):
   def __init__(self, parent, playlist) -> None:

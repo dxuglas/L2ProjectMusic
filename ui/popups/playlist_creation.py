@@ -9,7 +9,8 @@ from PyQt6.QtWidgets import (
 )
 
 from PyQt6.QtGui import (
-  QIcon
+  QIcon,
+  QDesk
 )
 
 from PyQt6.QtCore import (
@@ -22,7 +23,7 @@ from file_handler.save import CreatePlaylistFile
 
 
 class CreationPopup(QDialog):
-  def __init__(self) -> None:
+  def __init__(self, window) -> None:
     super().__init__()
     self.layout = QVBoxLayout()
     self.setLayout(self.layout)
@@ -61,6 +62,11 @@ class CreationPopup(QDialog):
     self.layout.addLayout(self.controlsLayout)
 
     self.layout.setContentsMargins(30, 30, 30, 30)
+
+    # qr = self.frameGeometry()
+    # cp = window.
+    # qr.moveCenter(cp)
+    # dlgNew.move(qr.topLeft())
 
     self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
     self.setFocus()

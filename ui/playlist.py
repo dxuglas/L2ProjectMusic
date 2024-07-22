@@ -66,7 +66,6 @@ class HeaderPanel(QFrame):
     self.art.setIcon(QIcon(self.playlist["icon"]))
     self.name.setText(self.playlist["name"])
 
-
 class PlaylistArt(QPushButton):
   def __init__(self, parent, playlist):
     super().__init__(parent)
@@ -74,6 +73,8 @@ class PlaylistArt(QPushButton):
   
     self.setObjectName("playlist_art")
     self.setFlat(True)
+
+    self.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.setFixedWidth(self.height())
@@ -124,6 +125,7 @@ class SongPanel(QFrame):
     if not self.sized:
       self.sized = True
       self.setMinimumHeight(int(self.parent.height()/5))
+    self.setFixedHeight(self.height())
 
 
 class SongArt(QPushButton):
@@ -162,3 +164,7 @@ class SongViewer(QScrollArea):
     self.layout.addStretch(1)
     self.setWidget(self.frame)
     self.setWidgetResizable(True)
+
+  def resizeEvent(self, a0: QResizeEvent | None) -> None:
+    self.frame.setFixedWidth(self.width())
+    self.setMinimumHeight(self.height())

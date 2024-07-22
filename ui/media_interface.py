@@ -5,14 +5,14 @@ from PyQt6.QtWidgets import (
   QVBoxLayout, 
   QGridLayout,
   QSlider,
-  QLabel
+  QLabel,
+  QSizePolicy
 )
 from PyQt6.QtCore import (
   QSize, 
   Qt
 )
 from PyQt6.QtGui import QIcon, QResizeEvent
-
 
 class MediaInterface(QFrame):
   def __init__(self, parent, song = None) -> None:
@@ -31,13 +31,14 @@ class MediaInterface(QFrame):
 
     self.playing_info = PlayingInfo(self)
     self.layout.addWidget(self.playing_info, 
-                          alignment = Qt.AlignmentFlag.AlignLeft)
+                          alignment = Qt.AlignmentFlag.AlignLeft,
+                          stretch = 3)
     
     self.media_controls = MediaControls(self)
-    self.layout.addWidget(self.media_controls)
+    self.layout.addWidget(self.media_controls, stretch = 2)
 
     self.volume_controls = VolumeControls(self)
-    self.layout.addWidget(self.volume_controls)
+    self.layout.addWidget(self.volume_controls, stretch = 3)
 
 
 class PlayingInfo(QFrame):
@@ -132,6 +133,17 @@ class MediaControls(QFrame):
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.setFixedWidth(self.width())
 
+    self.shuffle_btn.setFixedHeight(self.shuffle_btn.width())
+    self.track_back_btn.setFixedHeight(self.track_back_btn.width())
+    self.pause_play_btn.setFixedHeight(self.pause_play_btn.width())
+    self.track_forward_btn.setFixedHeight(self.track_forward_btn.width())
+    self.loop_btn.setFixedHeight(self.loop_btn.width())
+
+    self.shuffle_btn.setIconSize(QSize(self.shuffle_btn.width(), self.shuffle_btn.width()))
+    self.track_back_btn.setIconSize(QSize(self.track_back_btn.width(), self.track_back_btn.width()))
+    self.pause_play_btn.setIconSize(QSize(self.pause_play_btn.width(), self.pause_play_btn.width()))
+    self.track_forward_btn.setIconSize(QSize(self.track_forward_btn.width(), self.track_forward_btn.width()))
+    self.loop_btn.setIconSize(QSize(self.loop_btn.width(), self.loop_btn.width()))
 
 class VolumeControls(QFrame):
   def __init__(self, parent):

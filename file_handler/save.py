@@ -3,9 +3,6 @@ import os
 
 DIRECTORY = os.path.expanduser(f'~/AppData/Local/Musi')
 
-if not os.path.exists(DIRECTORY):
-  os.mkdir(DIRECTORY)
-
 class SaveFile():
   def __init__(self, name, data, path) -> None:
 
