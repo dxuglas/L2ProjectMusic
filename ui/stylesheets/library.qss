@@ -26,3 +26,9 @@ QScrollBar:vertical {
   width: 0px;
   margin: 0px;
 }
+
+QMenu#menu {
+  background-color: black;
+  color: white;
+  font-family: "RubikMonoOne";
+}

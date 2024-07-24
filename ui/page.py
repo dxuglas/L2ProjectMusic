@@ -27,6 +27,7 @@ class PageHandler(QFrame):
     self.setLayout(self.layout)
 
     self.page = None
+    self.status = "home"
 
   def update_page(self, data, type):
     if self.page:
@@ -35,6 +36,8 @@ class PageHandler(QFrame):
     if type == "playlist":
       self.page = PlaylistPage(self, data)
       self.layout.addWidget(self.page)
+    
+    self.status = type
 
 class TitleBar(QTitleBar):
   def __init__(self, parent) -> None:

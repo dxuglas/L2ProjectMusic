@@ -16,7 +16,6 @@ QPushButton#song_art {
 QPushButton#name {
   font-family: "RubikMonoOne";
   font-weight: 700;
-  font-size: 40px;
 }
 
 QScrollArea {

@@ -2,15 +2,20 @@ from PyQt6.QtWidgets import (
   QFrame, 
   QPushButton,
   QVBoxLayout,
-  QScrollArea
+  QScrollArea,
+  QMenu
 )
 from PyQt6.QtCore import (
   QSize,
   Qt
 )
-from PyQt6.QtGui import QIcon, QResizeEvent
+from PyQt6.QtGui import (
+  QIcon, 
+  QResizeEvent, 
+  QCursor
+)
 
-from .popups.playlist_creation import CreationPopup
+from .popups.creation import CreatePlaylist
 from file_handler.load import Playlists 
 
 
@@ -60,6 +65,27 @@ class MenuButtons(QFrame):
     self.layout.addWidget(self.search_btn)
     self.layout.addWidget(self.new_btn)
 
+  def home(self):
+    self.window().update_page(None, "home")
+
+  def new(self):
+    self.menu = QMenu(self, objectName = "menu")
+
+    upload_song = self.menu.addAction("Upload Song")
+    create_playlist = self.menu.addAction("Create Playlist")
+
+    upload_song.triggered.connect(self.upload_song)
+    create_playlist.triggered.connect(self.create_playlist)
+
+    self.menu.exec(QCursor.pos())
+
+  def upload_song(self):
+    pass
+
+  def create_playlist(self):
+    self.popup = CreatePlaylist(self.window())
+    self.popup.show()
+
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.home_btn.setIconSize(QSize(self.home_btn.width(), 
                                     self.home_btn.width()))
@@ -67,13 +93,7 @@ class MenuButtons(QFrame):
                                     self.search_btn.width()))
     self.new_btn.setIconSize(QSize(self.new_btn.width(),
                                    self.new_btn.width()))
-  
-  def home(self):
-    self.window().update_page(None, "home")
 
-  def new(self):
-    self.popup = CreationPopup(self.window())
-    self.popup.show()
 
 class PlaylistButton(QPushButton):
   def __init__(self, parent, playlist) -> None:

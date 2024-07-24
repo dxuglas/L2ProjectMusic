@@ -66,6 +66,11 @@ class HeaderPanel(QFrame):
     self.art.setIcon(QIcon(self.playlist["icon"]))
     self.name.setText(self.playlist["name"])
 
+  def resizeEvent(self, a0: QResizeEvent | None) -> None:
+    font = self.name.font()
+    font.setPointSize(int(self.height()/7))
+    self.name.setFont(font)
+
 class PlaylistArt(QPushButton):
   def __init__(self, parent, playlist):
     super().__init__(parent)
