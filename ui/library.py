@@ -15,7 +15,7 @@ from PyQt6.QtGui import (
   QCursor
 )
 
-from .popups.creation import CreatePlaylist
+from .popups.creation import CreatePlaylist, UploadSong
 from file_handler.load import Playlists 
 
 
@@ -80,11 +80,12 @@ class MenuButtons(QFrame):
     self.menu.exec(QCursor.pos())
 
   def upload_song(self):
-    pass
+    self.popup = UploadSong(self.window())
+    self.popup.exec()
 
   def create_playlist(self):
     self.popup = CreatePlaylist(self.window())
-    self.popup.show()
+    self.popup.exec()
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.home_btn.setIconSize(QSize(self.home_btn.width(), 
