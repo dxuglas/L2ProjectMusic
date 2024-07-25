@@ -23,7 +23,7 @@ class MediaInterface(QFrame):
     self.setObjectName("MediaInterface")
     self.setStyleSheet(open(r"ui\stylesheets\media_interface.qss").read())
 
-    self.height = (int(self.parent.screen_size[0] * 0.05))
+    self.height = (int(self.parent.screen_size[0]*0.05))
     self.setFixedHeight(self.height)
 
     self.layout = QHBoxLayout()
@@ -31,14 +31,14 @@ class MediaInterface(QFrame):
 
     self.playing_info = PlayingInfo(self)
     self.layout.addWidget(self.playing_info, 
-                          alignment = Qt.AlignmentFlag.AlignLeft,
-                          stretch = 3)
+                          alignment=Qt.AlignmentFlag.AlignLeft,
+                          stretch=3)
     
     self.media_controls = MediaControls(self)
-    self.layout.addWidget(self.media_controls, stretch = 2)
+    self.layout.addWidget(self.media_controls, stretch=2)
 
     self.volume_controls = VolumeControls(self)
-    self.layout.addWidget(self.volume_controls, stretch = 3)
+    self.layout.addWidget(self.volume_controls, stretch=3)
 
 
 class PlayingInfo(QFrame):
@@ -59,8 +59,8 @@ class PlayingInfo(QFrame):
     self.text_layout.setSpacing(0)
     self.text_layout.setContentsMargins(7, 7, 7, 7)
 
-    self.name = QLabel(objectName = "name")
-    self.artist = QLabel(objectName = "artist")
+    self.name = QLabel(objectName="name")
+    self.artist = QLabel(objectName="artist")
 
     self.text_layout.addWidget(self.name)
     self.text_layout.addWidget(self.artist)
@@ -108,24 +108,25 @@ class MediaControls(QFrame):
 
     self.paused = False
 
-    self.shuffle_btn = QPushButton(objectName = "shuffle_btn", flat = True,
-                                   icon = QIcon(r"ui\assets\shuffle.svg"))
+    self.shuffle_btn = QPushButton(objectName="shuffle_btn", flat=True,
+                                   icon=QIcon(r"ui\assets\shuffle.svg"))
     
-    self.track_back_btn = QPushButton(objectName = "track_back_btn", 
-                                      flat = True,
-                                      icon = QIcon(r"ui\assets\bw_track.svg"))
+    self.track_back_btn = QPushButton(objectName="track_back_btn", 
+                                      flat=True,
+                                      icon=QIcon(r"ui\assets\bw_track.svg"))
     
-    self.pause_play_btn = QPushButton(objectName = "pause_play_btn", 
-                                      flat = True,
-                                      icon = QIcon(r"ui\assets\pause.svg"))
+    self.pause_play_btn = QPushButton(objectName="pause_play_btn", 
+                                      flat=True,
+                                      icon=QIcon(r"ui\assets\pause.svg"))
     self.pause_play_btn.clicked.connect(self.pause_play_btn_pressed)
     
-    self.track_forward_btn = QPushButton(objectName = "track_forward_btn", 
-                                         flat = True,
-                                         icon = QIcon(r"ui\assets\fw_track.svg"))
+    self.track_forward_btn = QPushButton(objectName="track_forward_btn", 
+                                         flat=True,
+                                         icon=QIcon(r"ui\assets\fw_track.svg"))
     
-    self.loop_btn = QPushButton(objectName = "loop_btn", flat = True,
-                                  icon = QIcon(r"ui\assets\loop.svg"))
+    self.loop_btn = QPushButton(objectName = "loop_btn", 
+                                flat = True,
+                                icon = QIcon(r"ui\assets\loop.svg"))
     
     self.layout.addWidget(self.shuffle_btn)
     self.layout.addWidget(self.track_back_btn)
@@ -150,11 +151,16 @@ class MediaControls(QFrame):
     self.track_forward_btn.setFixedHeight(self.track_forward_btn.width())
     self.loop_btn.setFixedHeight(self.loop_btn.width())
 
-    self.shuffle_btn.setIconSize(QSize(self.shuffle_btn.width(), self.shuffle_btn.width()))
-    self.track_back_btn.setIconSize(QSize(self.track_back_btn.width(), self.track_back_btn.width()))
-    self.pause_play_btn.setIconSize(QSize(self.pause_play_btn.width(), self.pause_play_btn.width()))
-    self.track_forward_btn.setIconSize(QSize(self.track_forward_btn.width(), self.track_forward_btn.width()))
-    self.loop_btn.setIconSize(QSize(self.loop_btn.width(), self.loop_btn.width()))
+    self.shuffle_btn.setIconSize(QSize(self.shuffle_btn.width(), 
+                                       self.shuffle_btn.width()))
+    self.track_back_btn.setIconSize(QSize(self.track_back_btn.width(), 
+                                          self.track_back_btn.width()))
+    self.pause_play_btn.setIconSize(QSize(self.pause_play_btn.width(), 
+                                          self.pause_play_btn.width()))
+    self.track_forward_btn.setIconSize(QSize(self.track_forward_btn.width(), 
+                                             self.track_forward_btn.width()))
+    self.loop_btn.setIconSize(QSize(self.loop_btn.width(), 
+                                    self.loop_btn.width()))
 
 class VolumeControls(QFrame):
   def __init__(self, parent):
@@ -169,19 +175,21 @@ class VolumeControls(QFrame):
     self.volume = 100
     self.muted = False
 
-    self.mute_btn = QPushButton(objectName = "mute_btn", flat = True,
-                                icon = QIcon(r"ui\assets\mute_off_2.svg"))
+    self.mute_btn = QPushButton(objectName="mute_btn", flat=True,
+                                icon=QIcon(r"ui\assets\mute_off_2.svg"))
     self.mute_btn.clicked.connect(self.mute_btn_pressed)  
 
-    self.volume_bar = QSlider(Qt.Orientation.Horizontal, objectName="volume_bar")
+    self.volume_bar = QSlider(Qt.Orientation.Horizontal, 
+                              objectName="volume_bar")
     self.volume_bar.setRange(0, 100)
     self.volume_bar.setValue(100)
     self.volume_bar.valueChanged.connect(self.volume_changed)
-    self.volume_bar.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
+    self.volume_bar.setSizePolicy(QSizePolicy.Policy.Maximum, 
+                                  QSizePolicy.Policy.Maximum)
     
     self.layout.addStretch(1)
-    self.layout.addWidget(self.mute_btn, alignment = Qt.AlignmentFlag.AlignRight)
-    self.layout.addWidget(self.volume_bar, alignment = Qt.AlignmentFlag.AlignLeft)
+    self.layout.addWidget(self.mute_btn, alignment=Qt.AlignmentFlag.AlignRight)
+    self.layout.addWidget(self.volume_bar, alignment=Qt.AlignmentFlag.AlignLeft)
 
   def mute_btn_pressed(self):
     if self.muted:
@@ -204,6 +212,8 @@ class VolumeControls(QFrame):
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.mute_btn.setFixedWidth(self.mute_btn.height())
     self.mute_btn.setFixedHeight(self.mute_btn.height())
-    self.mute_btn.setIconSize(QSize(self.mute_btn.width(), self.mute_btn.width()))
+    self.volume_bar.setFixedHeight(int(self.mute_btn.height()/2))
+    self.mute_btn.setIconSize(QSize(self.mute_btn.width(), 
+                                    self.mute_btn.width()))
 
   

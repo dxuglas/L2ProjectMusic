@@ -66,7 +66,7 @@ class MenuButtons(QFrame):
     self.layout.addWidget(self.new_btn)
 
   def home(self):
-    self.window().update_page(None, "home")
+    self.window().update_page("home")
 
   def new(self):
     self.menu = QMenu(self, objectName = "menu")
@@ -109,7 +109,7 @@ class PlaylistButton(QPushButton):
     self.clicked.connect(self.load_playlist)
 
   def load_playlist(self):
-    self.window().update_page(self.playlist, "playlist")
+    self.window().update_page("playlist", self.playlist)
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.setFixedSize(QSize(self.parent.width(), self.parent.width()))

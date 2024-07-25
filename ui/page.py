@@ -9,6 +9,7 @@ from qframelesswindow import (
 )
 
 from .playlist import PlaylistPage
+from .home import HomePage
 
 
 class PageHandler(QFrame):
@@ -29,12 +30,15 @@ class PageHandler(QFrame):
     self.page = None
     self.status = "home"
 
-  def update_page(self, data, type):
+  def update_page(self, type, data = None):
     if self.page:
       self.page.deleteLater()
       self.page = None
     if type == "playlist":
       self.page = PlaylistPage(self, data)
+      self.layout.addWidget(self.page)
+    elif type == "home":
+      self.page = HomePage(self)
       self.layout.addWidget(self.page)
     
     self.status = type

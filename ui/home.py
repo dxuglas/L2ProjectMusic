@@ -4,6 +4,8 @@ from PyQt6.QtWidgets import (
   QGridLayout
 )
 
+from media_handler.song_recomendations import SongRecomendations
+
 
 class HomePage(QFrame):
   def __init__(self, parent) -> None:
@@ -16,15 +18,20 @@ class HomePage(QFrame):
     self.layout.setContentsMargins(10, 10, 10, 10)
     self.setLayout(self.layout)
 
+    self.recommendation_panel = RecomendationPanel(self)
 
-class ReccomendationPanel(QFrame):
+
+class RecomendationPanel(QFrame):
   def __init__(self, parent) -> None:
     super().__init__(parent)
 
     self.setObjectName("ReccomendationPanel")
 
-    self.layout = QGridLayout
+    self.layout = QGridLayout()
     self.layout.setContentsMargins(10, 10, 10, 10)
     self.setLayout(self.layout)
+
+    self.songs = SongRecomendations().from_library(4)
+    print(self.songs)
 
   
