@@ -1,10 +1,7 @@
 def clean(data, keys):
-  clean = {}
+  cleaned = {}
 
   for key in keys:
-    if isinstance(key, tuple):
-      clean[key[1]] = data["images"]["coverart"]
-    else:
-      clean[key] = data[key]
+    cleaned[key] = data[key]
 
-  return clean
+  return cleaned

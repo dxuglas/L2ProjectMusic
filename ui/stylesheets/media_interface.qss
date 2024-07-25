@@ -23,3 +23,29 @@ QLabel#artist {
   font-family: "RubikMonoOne";
   font-weight: 700;
 }
+
+QSlider::handle:horizontal {
+  background: transparent;
+  width: 8;
+}
+
+QSlider::handle:horizontal:hover {
+  background: gray;
+  width: 8;
+}
+
+QSlider::groove:horizontal {
+  background: transparent;
+}
+
+QSlider::add-page:horizontal {
+  background: rgb(77, 77, 77);
+}
+
+QSlider::sub-page:horizontal:enabled {
+  background: white;
+}
+
+QSlider::sub-page:horizontal:disabled {
+  background: gray;
+}

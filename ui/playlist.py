@@ -2,7 +2,6 @@ from PyQt6.QtWidgets import (
   QFrame, 
   QHBoxLayout,
   QVBoxLayout,
-  QGridLayout,
   QPushButton,
   QLabel,
   QScrollArea,

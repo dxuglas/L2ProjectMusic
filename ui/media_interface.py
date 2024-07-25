@@ -106,6 +106,8 @@ class MediaControls(QFrame):
     self.layout = QHBoxLayout()
     self.setLayout(self.layout)
 
+    self.paused = False
+
     self.shuffle_btn = QPushButton(objectName = "shuffle_btn", flat = True,
                                    icon = QIcon(r"ui\assets\shuffle.svg"))
     
@@ -116,6 +118,7 @@ class MediaControls(QFrame):
     self.pause_play_btn = QPushButton(objectName = "pause_play_btn", 
                                       flat = True,
                                       icon = QIcon(r"ui\assets\pause.svg"))
+    self.pause_play_btn.clicked.connect(self.pause_play_btn_pressed)
     
     self.track_forward_btn = QPushButton(objectName = "track_forward_btn", 
                                          flat = True,
@@ -129,6 +132,14 @@ class MediaControls(QFrame):
     self.layout.addWidget(self.pause_play_btn)
     self.layout.addWidget(self.track_forward_btn)
     self.layout.addWidget(self.loop_btn)
+
+  def pause_play_btn_pressed(self):
+    if self.paused:
+      self.pause_play_btn.setIcon(QIcon(r"ui\assets\pause.svg"))
+      self.paused = False
+    else:
+      self.pause_play_btn.setIcon(QIcon(r"ui\assets\play.svg"))
+      self.paused = True
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.setFixedWidth(self.width())
@@ -152,4 +163,47 @@ class VolumeControls(QFrame):
     self.setObjectName("VolumeControls")
 
     self.layout = QHBoxLayout()
+    self.layout.setContentsMargins(0, 0, 0, 0)
     self.setLayout(self.layout)
+
+    self.volume = 100
+    self.muted = False
+
+    self.mute_btn = QPushButton(objectName = "mute_btn", flat = True,
+                                icon = QIcon(r"ui\assets\mute_off_2.svg"))
+    self.mute_btn.clicked.connect(self.mute_btn_pressed)  
+
+    self.volume_bar = QSlider(Qt.Orientation.Horizontal, objectName="volume_bar")
+    self.volume_bar.setRange(0, 100)
+    self.volume_bar.setValue(100)
+    self.volume_bar.valueChanged.connect(self.volume_changed)
+    self.volume_bar.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Maximum)
+    
+    self.layout.addStretch(1)
+    self.layout.addWidget(self.mute_btn, alignment = Qt.AlignmentFlag.AlignRight)
+    self.layout.addWidget(self.volume_bar, alignment = Qt.AlignmentFlag.AlignLeft)
+
+  def mute_btn_pressed(self):
+    if self.muted:
+      self.muted = False
+      self.volume_changed()
+      self.volume_bar.setEnabled(True)
+    else:
+      self.muted = True
+      self.mute_btn.setIcon(QIcon(r"ui\assets\mute_on.svg"))
+      self.volume_bar.setEnabled(False)
+
+  def volume_changed(self):
+    if self.volume_bar.value() > 66:
+      self.mute_btn.setIcon(QIcon(r"ui\assets\mute_off_2.svg"))
+    elif self.volume_bar.value() > 33:
+      self.mute_btn.setIcon(QIcon(r"ui\assets\mute_off_1.svg"))
+    else:
+      self.mute_btn.setIcon(QIcon(r"ui\assets\mute_off_0.svg"))
+
+  def resizeEvent(self, a0: QResizeEvent | None) -> None:
+    self.mute_btn.setFixedWidth(self.mute_btn.height())
+    self.mute_btn.setFixedHeight(self.mute_btn.height())
+    self.mute_btn.setIconSize(QSize(self.mute_btn.width(), self.mute_btn.width()))
+
+  

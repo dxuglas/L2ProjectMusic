@@ -21,3 +21,11 @@ class CreatePlaylistFile():
     self.name = self.data["name"]
 
     SaveFile(self.name, self.data, "Playlists")
+
+
+class CreateSongFile():
+  def __init__(self, data) -> None:
+    self.data = data
+    self.name = self.data["key"]
+
+    SaveFile(self.name, self.data, "Songs")

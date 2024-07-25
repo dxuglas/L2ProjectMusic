@@ -20,7 +20,7 @@ from PyQt6.QtCore import (
 import requests
 
 from .file_dialog import Selector
-from file_handler.save import CreatePlaylistFile
+from file_handler.save import CreatePlaylistFile, CreateSongFile
 import shazam_interface.recognize_song as recognize_song
 
 
@@ -74,12 +74,13 @@ class CreationPopup(QDialog):
       self.icon = self.icon[0]
       self.icon_changer.setIcon(QIcon(self.icon))
       self.icon_changer.setIconSize(QSize(self.icon_changer.width(), 
-                                          self.icon_changer.width()))
+                                          self.icon_changer.height()))
     else:
       self.icon = r"ui\assets\placeholder.svg"
 
   def resizeEvent(self, a0: QResizeEvent | None):
-    self.icon_changer.setFixedHeight(self.icon_changer.width())
+    self.icon_changer.setFixedSize(self.icon_changer.width(), 
+                                   self.icon_changer.width())
     self.icon_changer.setIconSize(QSize(int(self.icon_changer.width()*0.66), 
                                         int(self.icon_changer.width()*0.66)))
 
@@ -132,26 +133,35 @@ class CreatePlaylist(CreationPopup):
 class UploadSong(CreationPopup):
   def __init__(self, window) -> None:
     super().__init__(window, "Song Name", False, 
-                     [("Save", self.save), ("Upload", self.upload), 
+                     [("Save", self.save), ("Upload", self.upload_song), 
                       ("Cancel", self.reject)])
     
     self.file = None
     
   def save(self):
     if self.file:
+      CreateSongFile(self.data)
       self.accept()
 
-  def upload(self):
+  def upload_song(self):
     self.file = Selector().get_file(type="song")[0]
-    self.data = recognize_song.recognise(self.file)
-    self.get_and_set_image_from_url(self.data["coverart"])
 
-    self.info_changer.name_edit.setText(self.data["title"])
+    if self.file:
+      try:
+        self.data = recognize_song.recognise(self.file)
+        self.get_and_set_image_from_url(self.data["images"]["coverart"])
+        self.info_changer.name_edit.setText(self.data["title"])
+      except:
+        pass
 
-  def get_and_set_image_from_url(self,image_url):
+  def get_and_set_image_from_url(self, image_url):
     request = requests.get(image_url)
+
     pixmap = QPixmap()
     pixmap.loadFromData(request.content)
-    pixmap_resized = pixmap.scaled(self.icon_changer.width(), self.icon_changer.height(), Qt.AspectRatioMode.KeepAspectRatio)
-    self.icon_changer.set(pixmap_resized)
+
+    icon = QIcon(pixmap)
+    self.icon_changer.setIcon(icon)
+    self.icon_changer.setIconSize(QSize(self.icon_changer.width(), 
+                                        self.icon_changer.height()))
 
