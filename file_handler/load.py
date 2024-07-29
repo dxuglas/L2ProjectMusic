@@ -35,8 +35,11 @@ class LoadFile():
     self.file = file
 
   def load(self):
-    with open(fr"{self.dir}/{self.file}", 'r') as f:
-      self.file = json.load(f)
+    try:
+      with open(fr"{self.dir}/{self.file}", 'r') as f:
+        self.file = json.load(f)
+    except:
+      self.file = None
 
     return self.file
   
@@ -46,11 +49,15 @@ class LoadSong(LoadFile):
 
     self.data = data if data else self.load()
 
+    self.key = self.data["key"]
     self.name = self.data["title"]
     self.artist = self.data["subtitle"]
+    
+    try:
+      request = requests.get(self.data["images"]["coverart"])
+      pixmap = QPixmap()
+      pixmap.loadFromData(request.content)
 
-    request = requests.get(self.data["images"]["coverart"])
-    pixmap = QPixmap()
-    pixmap.loadFromData(request.content)
-
-    self.icon = QIcon(pixmap)
+      self.icon = QIcon(pixmap)
+    except:
+      self.icon = QIcon()

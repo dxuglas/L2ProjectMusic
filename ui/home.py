@@ -18,7 +18,7 @@ from PyQt6.QtCore import (
   QSize
 )
 
-from media_handler.song_recomendations import SongRecomendations
+from media_handler.song_recommendations import SongRecommendations
 from file_handler.load import LoadSong
 
 
@@ -33,13 +33,16 @@ class HomePage(QFrame):
     self.layout.setContentsMargins(10, 10, 10, 10)
     self.setLayout(self.layout)
 
-    self.recommendation_panel = RecomendationPanel(self)
+    self.recommendation_panel = RecommendationPanel(self)
+    self.similar_song_panel = SimilarSongsPanel(self)
+
     self.layout.addWidget(self.recommendation_panel, stretch = 1)
-    self.layout.addStretch(2)
+    self.layout.addWidget(self.similar_song_panel, stretch = 1)
+    self.layout.addStretch(1)
 
 
 class DisplayPanel(QFrame):
-  def __init__(self, parent) -> None:
+  def __init__(self, parent, songs) -> None:
     super().__init__(parent)
 
     self.setObjectName("DisplayPanel")
@@ -48,37 +51,40 @@ class DisplayPanel(QFrame):
     self.layout.setContentsMargins(10, 10, 10, 10)
     self.setLayout(self.layout)
 
-    self.songs = SongRecomendations().from_library(4)
+    self.songs = songs
     self.title = QLabel(objectName = "title")
 
     self.layout.addWidget(self.title, 0, 0, 1, 2)
-    self.layout.setSpacing(15)
+    self.layout.setSpacing(10)
 
-    for x in range(1, 3):
+    for x in range(2):
       for y in range(2):
-        panel = SongPanel(self, self.songs[x+y-1])
-        self.layout.addWidget(panel, x, y)
+        panel = SongPanel(self, self.songs[2*x+y])
+        self.layout.addWidget(panel, x+1, y)
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     font = self.title.font()
     font.setPointSize(int(self.height()/8))
     self.title.setFont(font)
 
-class RecomendationPanel(DisplayPanel):
+
+class RecommendationPanel(DisplayPanel):
   def __init__(self, parent) -> None:
-    super().__init__(parent)
-    self.songs = SongRecomendations().from_library(4)
+    super().__init__(parent, SongRecommendations().from_library(4))
     self.title.setText("Songs from your Library")
+
 
 class SimilarSongsPanel(DisplayPanel):
   def __init__(self, parent) -> None:
-    super().__init__(parent)
     self.song = None
     while not self.song:
-      self.song = SongRecomendations().from_library(1)[0]
+      self.song = LoadSong(SongRecommendations().from_library(1)[0])
       
-    self.songs = None
-    self.title.setText(f"Because you liked... {self.song}")
+    self.songs = SongRecommendations().from_shazam(self.song.key, 4)
+
+    super().__init__(parent, self.songs)
+    self.title.setText(f"Because you liked... {self.song.name}")
+
 
 class SongArt(QPushButton):
   def __init__(self, parent, song):
@@ -121,7 +127,10 @@ class SongPanel(QFrame):
     self.layout.addWidget(self.name, alignment = Qt.AlignmentFlag.AlignLeft)
 
   def load(self):
-    data = LoadSong(self.song)
+    if isinstance(self.song, str):  
+      data = LoadSong(self.song)
+    elif isinstance(self.song, dict):
+      data = LoadSong(None, self.song)
     
     self.name.setText(data.name)
     self.art.setIcon(data.icon)

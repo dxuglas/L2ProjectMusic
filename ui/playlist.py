@@ -50,20 +50,33 @@ class HeaderPanel(QFrame):
                            QSizePolicy.Policy.Expanding)
 
     self.name = QPushButton(objectName = "name", flat = True)
+    self.desc = QLabel(objectName = "desc")
 
     self.layout.addWidget(self.art, stretch=1)
-    self.layout.addWidget(self.name, alignment=Qt.AlignmentFlag.AlignLeft,
-                          stretch=2)
+
+    self.text_layout = QVBoxLayout()
+    self.text_layout.setContentsMargins(0, 0, 0, 0)
+
+    self.text_layout.addStretch(1)
+    self.text_layout.addWidget(self.name, alignment=Qt.AlignmentFlag.AlignLeft, stretch=1)
+    self.text_layout.addWidget(self.desc, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop, stretch=1)
+
+    self.text_container = QFrame()
+    self.text_container.setLayout(self.text_layout)
+
+    self.layout.addWidget(self.text_container, stretch = 2)
 
     if playlist:
       self.load()
     else:
       self.art.setIcon(QIcon(r"ui\assets\placeholder.svg"))
       self.name.setText("Playlist")
+      self.desc.setText("")
     
   def load(self):
     self.art.setIcon(QIcon(self.playlist["icon"]))
     self.name.setText(self.playlist["name"])
+    self.desc.setText(self.playlist["description"])
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     font = self.name.font()
