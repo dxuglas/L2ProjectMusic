@@ -1,0 +1,22 @@
+@font-face {
+  font-family: 'RubikMonoOne';
+  src: url(assets/fonts/RubikMonoOne-Regular.ttf)
+}
+
+QFrame#SongPanel {
+  background-color: rgb(228, 228, 228);
+}
+
+QPushButton#SongArt {
+  background-color: white;
+  border: 0px;
+}
+
+QLabel {
+  font-family: "RubikMonoOne";
+  font-weight: 700;
+}
+
+QLabel#name {
+  font-weight: 500;
+}

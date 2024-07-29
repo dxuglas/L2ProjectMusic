@@ -27,7 +27,8 @@ class PageHandler(QFrame):
                                    0, 0)
     self.setLayout(self.layout)
 
-    self.page = None
+    self.page = HomePage(self)
+    self.layout.addWidget(self.page)
     self.status = "home"
 
   def update_page(self, type, data = None):

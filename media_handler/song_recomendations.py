@@ -21,6 +21,6 @@ class SongRecomendations():
         recomendations.append(song)
 
     return recomendations
-
-    
-
+  
+  def from_shazam(self, count):
+    pass
