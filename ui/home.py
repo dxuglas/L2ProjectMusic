@@ -54,7 +54,33 @@ class DisplayPanel(QFrame):
     self.songs = songs
     self.title = QLabel(objectName = "title")
 
-    self.layout.addWidget(self.title, 0, 0, 1, 2)
+    self.title_layout = QHBoxLayout()
+    self.title_layout.setContentsMargins(0, 0, 0, 0)
+
+    self.refresh_button = QPushButton(objectName = "refresh")
+
+    self.title_layout.addWidget(self.title)
+    self.title_layout.addWidget(self.refresh_button)
+
+    self.layout.addLayout(self.title_layout, 0, 0, 1, 2)
+    self.layout.setSpacing(10)
+
+    for x in range(2):
+      for y in range(2):
+        panel = SongPanel(self, self.songs[2*x+y])
+        self.layout.addWidget(panel, x+1, y)
+
+  def refresh(self):
+    index = self.layout.count()
+    while(index >= 0):
+      item = self.layout.itemAt(index)
+      if item:
+        widget = item.widget()
+        if widget:
+          widget.setParent(None)
+      index -=1
+    
+    self.layout.addLayout(self.title_layout, 0, 0, 1, 2)
     self.layout.setSpacing(10)
 
     for x in range(2):
@@ -63,6 +89,9 @@ class DisplayPanel(QFrame):
         self.layout.addWidget(panel, x+1, y)
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
+
+    self.refresh_button.setFixedWidth(self.refresh_button.height())
+
     font = self.title.font()
     font.setPointSize(int(self.height()/8))
     self.title.setFont(font)

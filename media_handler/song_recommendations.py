@@ -15,14 +15,21 @@ class SongRecommendations():
   def from_library(self, count):
     recommendations = []
 
-    recommendations = random.sample(self.songs, count)
+    if count > len(self.songs):
+      recommendations = random.sample(self.songs, len(self.songs))
+      for i in range(count - len(self.songs)):
+        recommendations.append(None)
+    else:
+      recommendations = random.sample(self.songs, count)
 
     return recommendations
   
   def from_shazam(self, key, count):
+    
     try:
       recommendations = get_recommendations(key, count)
     except:
-      recommendations = ["None", "None", "None", "None"]
+      for i in range(count):
+        recommendations.append(None)
 
     return recommendations

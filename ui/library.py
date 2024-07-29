@@ -43,6 +43,7 @@ class Library(QFrame):
 class MenuButtons(QFrame):
   def __init__(self, parent):
     super().__init__(parent)
+    self.parent = parent
     self.setObjectName("MenuButtons")
 
     self.layout = QVBoxLayout()
@@ -84,8 +85,14 @@ class MenuButtons(QFrame):
     self.popup.exec()
 
   def create_playlist(self):
+
+    playlists = self.parent.playlists_scroller.playlists
+
     self.popup = CreatePlaylist(self.window())
     self.popup.exec()
+
+    if playlists != Playlists().load():
+      self.parent.playlists_scroller.load_playlists()
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     self.home_btn.setIconSize(QSize(self.home_btn.width(), 
@@ -119,7 +126,7 @@ class PlaylistButton(QPushButton):
 class PlaylistScroller(QScrollArea):
   def __init__(self, parent) -> None:
     super().__init__(parent)
-    self.playlists = Playlists().load()
+    self.playlists = None
 
     self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
     self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
@@ -129,13 +136,28 @@ class PlaylistScroller(QScrollArea):
     self.frame = QFrame(self, objectName = "playlists")
     self.frame.setLayout(self.layout)
 
+    self.setWidget(self.frame)
+    self.setWidgetResizable(True)
+
+    self.load_playlists()
+
+  def load_playlists(self):
+    index = self.layout.count()
+    while(index >= 0):
+      item = self.layout.itemAt(index)
+      if item:
+        widget = item.widget()
+        if widget:
+          widget.setParent(None)
+      index -=1
+
+    self.playlists = Playlists().load()
+
     for playlist in self.playlists:
       self.layout.addWidget(PlaylistButton(self, playlist), 
                             alignment=Qt.AlignmentFlag.AlignCenter)
 
     self.layout.addStretch(1)
-    self.setWidget(self.frame)
-    self.setWidgetResizable(True)
 
 
 
