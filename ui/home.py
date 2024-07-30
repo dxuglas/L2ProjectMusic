@@ -35,14 +35,17 @@ class HomePage(QFrame):
 
     self.recommendation_panel = RecommendationPanel(self)
     self.similar_song_panel = SimilarSongsPanel(self)
+    self.similar_song_panel2 = SimilarSongsPanel(self)
+    #self.recents_panel = RecentsPanel(self)
 
     self.layout.addWidget(self.recommendation_panel, stretch = 1)
     self.layout.addWidget(self.similar_song_panel, stretch = 1)
-    self.layout.addStretch(1)
+    self.layout.addWidget(self.similar_song_panel2, stretch = 1)
+    #self.layout.addWidget(self.recents_panel, stretch = 1)
 
 
 class DisplayPanel(QFrame):
-  def __init__(self, parent, songs) -> None:
+  def __init__(self, parent) -> None:
     super().__init__(parent)
 
     self.setObjectName("DisplayPanel")
@@ -51,13 +54,15 @@ class DisplayPanel(QFrame):
     self.layout.setContentsMargins(10, 10, 10, 10)
     self.setLayout(self.layout)
 
-    self.songs = songs
     self.title = QLabel(objectName = "title")
 
     self.title_layout = QHBoxLayout()
     self.title_layout.setContentsMargins(0, 0, 0, 0)
 
-    self.refresh_button = QPushButton(objectName = "refresh")
+    self.refresh_button = QPushButton(objectName = "refresh",
+                                      flat=True,
+                                      icon=QIcon(r"ui\assets\refresh.svg"))
+    self.refresh_button.clicked.connect(self.refresh)
 
     self.title_layout.addWidget(self.title)
     self.title_layout.addWidget(self.refresh_button)
@@ -65,10 +70,7 @@ class DisplayPanel(QFrame):
     self.layout.addLayout(self.title_layout, 0, 0, 1, 2)
     self.layout.setSpacing(10)
 
-    for x in range(2):
-      for y in range(2):
-        panel = SongPanel(self, self.songs[2*x+y])
-        self.layout.addWidget(panel, x+1, y)
+    self.refresh()
 
   def refresh(self):
     index = self.layout.count()
@@ -79,9 +81,6 @@ class DisplayPanel(QFrame):
         if widget:
           widget.setParent(None)
       index -=1
-    
-    self.layout.addLayout(self.title_layout, 0, 0, 1, 2)
-    self.layout.setSpacing(10)
 
     for x in range(2):
       for y in range(2):
@@ -99,21 +98,40 @@ class DisplayPanel(QFrame):
 
 class RecommendationPanel(DisplayPanel):
   def __init__(self, parent) -> None:
-    super().__init__(parent, SongRecommendations().from_library(4))
-    self.title.setText("Songs from your Library")
+    super().__init__(parent)
+    self.title.setText("Songs from your library")
+
+  def refresh(self):
+    self.songs = SongRecommendations().from_library(4)
+
+    super().refresh()
 
 
 class SimilarSongsPanel(DisplayPanel):
   def __init__(self, parent) -> None:
-    self.song = None
-    while not self.song:
-      self.song = LoadSong(SongRecommendations().from_library(1)[0])
-      
-    self.songs = SongRecommendations().from_shazam(self.song.key, 4)
+    self.song = LoadSong(SongRecommendations().from_library(1)[0])
+    super().__init__(parent)
 
-    super().__init__(parent, self.songs)
+  def refresh(self):
+    previous_song = self.song
+    while self.song.name == previous_song.name:
+      self.song = LoadSong(SongRecommendations().from_library(1)[0])
+
+
     self.title.setText(f"Because you liked... {self.song.name}")
 
+    self.songs = SongRecommendations().from_shazam(self.song.key, 4)
+
+    super().refresh()
+
+class RecentsPanel(DisplayPanel):
+  def __init__(self, parent) -> None:
+    super().__init__(parent)
+    self.title.setText(f"Recently Enjoyed!")
+
+  def refresh(self):
+    pass
+    
 
 class SongArt(QPushButton):
   def __init__(self, parent, song):
@@ -123,8 +141,10 @@ class SongArt(QPushButton):
 
     self.setObjectName("SongArt")
 
+    self.setSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Expanding)
+
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
-    self.setFixedSize(QSize(self.parent.height(), self.parent.height()))
+    self.setFixedWidth(self.height())
     self.setIconSize(QSize(self.width(), self.height()))
 
 
