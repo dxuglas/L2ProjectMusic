@@ -5,7 +5,8 @@ from PyQt6.QtWidgets import (
   QPushButton,
   QSizePolicy,
   QHBoxLayout,
-  QLabel
+  QLabel,
+  QScrollArea
 )
 
 from PyQt6.QtGui import (
@@ -27,13 +28,28 @@ class SearchPage(QFrame):
     self.setObjectName("SearchPage")
     self.setStyleSheet(open(r"ui\stylesheets\search.qss").read())
 
+    self.sized = False
+
     self.layout = QVBoxLayout()
     self.setLayout(self.layout)
 
-    self.search_bar = QLineEdit()
+    self.search_bar = QLineEdit(placeholderText = "Search...")
     self.search_bar.textChanged.connect(self.search)
 
     self.layout.addWidget(self.search_bar, alignment = Qt.AlignmentFlag.AlignTop)
+
+    self.scroll_area = QScrollArea()
+    self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+    self.scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+
+    self.scroll_layout = QVBoxLayout()
+    self.scroll_layout.setContentsMargins(0, 0, 0, 0)
+
+    self.frame = QFrame()
+    self.frame.setLayout(self.scroll_layout)
+
+    self.scroll_area.setWidget(self.frame)
+    self.scroll_area.setWidgetResizable(True)
 
     self.songs = Songs().load()
     self.song_panels = []
@@ -41,9 +57,11 @@ class SearchPage(QFrame):
     for song in self.songs:
       panel = SongPanel(self, song)
       self.song_panels.append(panel)
-      self.layout.addWidget(panel)
+      self.scroll_layout.addWidget(panel)
 
-    self.layout.addStretch(1)
+    self.scroll_layout.addStretch(1)
+
+    self.layout.addWidget(self.scroll_area)
 
   def search(self):
     query = self.search_bar.text().casefold().strip()
@@ -52,7 +70,14 @@ class SearchPage(QFrame):
         panel.hide()
       else:
         panel.show()
-    
+
+  def resizeEvent(self, a0: QResizeEvent | None) -> None:
+    if self.sized == False: 
+      font = self.search_bar.font()
+      font.setPointSize(int(self.height()/20))
+      self.search_bar.setFont(font)
+      self.sized = True
+      
 
 class SongArt(QPushButton):
   def __init__(self, parent, song) -> None:

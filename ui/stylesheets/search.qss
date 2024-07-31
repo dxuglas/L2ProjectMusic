@@ -5,5 +5,23 @@
 
 QLabel {
   font-family: "RubikMonoOne";
-  font-weight: 500;
+  font-weight: 600;
+}
+
+QLineEdit {
+  background-color: white;
+  border: 0px;
+  font-family: "RubikMonoOne";
+  font-weight: 600;
+}
+
+QScrollArea {
+  background-color: white;
+  border: 0px;
+}
+
+QScrollBar:vertical {
+  background: transparent;
+  width: 0px;
+  margin: 0px;
 }

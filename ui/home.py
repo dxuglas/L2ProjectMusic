@@ -186,5 +186,5 @@ class SongPanel(QFrame):
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     font = self.name.font()
-    font.setPointSize(int(self.height()/5))
+    font.setPointSize(int(self.height()/4))
     self.name.setFont(font)
