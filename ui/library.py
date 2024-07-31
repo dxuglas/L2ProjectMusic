@@ -41,7 +41,7 @@ class Library(QFrame):
 
 
 class MenuButtons(QFrame):
-  def __init__(self, parent):
+  def __init__(self, parent) -> None:
     super().__init__(parent)
     self.parent = parent
     self.setObjectName("MenuButtons")
@@ -57,6 +57,7 @@ class MenuButtons(QFrame):
     
     self.search_btn = QPushButton(objectName = "search_btn", flat = True,
                                   icon = QIcon(r"ui\assets\search.svg"))
+    self.search_btn.clicked.connect(self.search)
     
     self.new_btn = QPushButton(objectName = "new_btn", flat = True,
                                icon=QIcon(r"ui\assets\plus.svg"))
@@ -66,10 +67,13 @@ class MenuButtons(QFrame):
     self.layout.addWidget(self.search_btn)
     self.layout.addWidget(self.new_btn)
 
-  def home(self):
+  def home(self) -> None:
     self.window().update_page("home")
 
-  def new(self):
+  def search(self) -> None:
+    self.window().update_page("search")
+
+  def new(self) -> None:
     self.menu = QMenu(self, objectName = "menu")
 
     upload_song = self.menu.addAction("Upload Song")
@@ -80,11 +84,11 @@ class MenuButtons(QFrame):
 
     self.menu.exec(QCursor.pos())
 
-  def upload_song(self):
+  def upload_song(self) -> None:
     self.popup = UploadSong(self.window())
     self.popup.exec()
 
-  def create_playlist(self):
+  def create_playlist(self) -> None:
 
     playlists = self.parent.playlists_scroller.playlists
 
@@ -115,7 +119,7 @@ class PlaylistButton(QPushButton):
 
     self.clicked.connect(self.load_playlist)
 
-  def load_playlist(self):
+  def load_playlist(self) -> None:
     self.window().update_page("playlist", self.playlist)
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
@@ -141,7 +145,7 @@ class PlaylistScroller(QScrollArea):
 
     self.load_playlists()
 
-  def load_playlists(self):
+  def load_playlists(self) -> None:
     index = self.layout.count()
     while(index >= 0):
       item = self.layout.itemAt(index)

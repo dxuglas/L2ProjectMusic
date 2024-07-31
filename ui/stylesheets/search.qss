@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'RubikMonoOne';
+  src: url(assets/fonts/RubikMonoOne-Regular.ttf)
+}
+
+QLabel {
+  font-family: "RubikMonoOne";
+  font-weight: 500;
+}

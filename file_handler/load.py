@@ -16,23 +16,34 @@ if not os.path.exists(DIRECTORY):
 
 class Playlists():
   def __init__(self) -> None:
-    self.dir = fr"{DIRECTORY}/Playlists/"
+    self.dir = "Playlists"
     self.playlists = []
 
-    if not os.path.exists(self.dir):
-      os.mkdir(self.dir)
-
   def load(self):
-    for file in os.listdir(self.dir):
-      with open(fr"{self.dir}/{file}", 'r') as f:
-        self.playlists.append(json.load(f))
+    for file in os.listdir(fr"{DIRECTORY}/{self.dir}"):
+      self.playlists.append(LoadFile(self.dir, file).load())
     
     return self.playlists
+  
+class Songs():
+  def __init__(self) -> None:
+    self.dir = "Songs"
+    self.songs = []
+
+  def load(self):
+    for file in os.listdir(fr"{DIRECTORY}/{self.dir}"):
+      
+      self.songs.append(LoadSong(file))
+    
+    return self.songs
   
 class LoadFile():
   def __init__(self, dir, file) -> None:
     self.dir = fr"{DIRECTORY}/{dir}/"
     self.file = file
+
+    if not os.path.exists(self.dir):
+      os.mkdir(self.dir)
 
   def load(self):
     try:
@@ -42,7 +53,7 @@ class LoadFile():
       self.file = None
 
     return self.file
-  
+
 class LoadSong(LoadFile):
   def __init__(self, file, data = None) -> None:
     super().__init__("Songs", file)

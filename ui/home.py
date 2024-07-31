@@ -72,7 +72,7 @@ class DisplayPanel(QFrame):
 
     self.refresh()
 
-  def refresh(self):
+  def refresh(self) -> None:
     index = self.layout.count()
     while(index >= 0):
       item = self.layout.itemAt(index)
@@ -101,7 +101,7 @@ class RecommendationPanel(DisplayPanel):
     super().__init__(parent)
     self.title.setText("Songs from your library")
 
-  def refresh(self):
+  def refresh(self) -> None:
     self.songs = SongRecommendations().from_library(4)
 
     super().refresh()
@@ -112,7 +112,7 @@ class SimilarSongsPanel(DisplayPanel):
     self.song = LoadSong(SongRecommendations().from_library(1)[0])
     super().__init__(parent)
 
-  def refresh(self):
+  def refresh(self) -> None:
     previous_song = self.song
     while self.song.name == previous_song.name:
       self.song = LoadSong(SongRecommendations().from_library(1)[0])
@@ -129,12 +129,12 @@ class RecentsPanel(DisplayPanel):
     super().__init__(parent)
     self.title.setText(f"Recently Enjoyed!")
 
-  def refresh(self):
+  def refresh(self) -> None:
     pass
     
 
 class SongArt(QPushButton):
-  def __init__(self, parent, song):
+  def __init__(self, parent, song) -> None:
     super().__init__(parent)
     self.parent = parent
     self.song = song
@@ -149,7 +149,7 @@ class SongArt(QPushButton):
 
 
 class SongPanel(QFrame):
-  def __init__(self, parent, song = None):
+  def __init__(self, parent, song = None) -> None:
     super().__init__(parent)
     self.song = song
     self.parent = parent
@@ -175,7 +175,7 @@ class SongPanel(QFrame):
     self.layout.addWidget(self.art)
     self.layout.addWidget(self.name, alignment = Qt.AlignmentFlag.AlignLeft)
 
-  def load(self):
+  def load(self) -> None:
     if isinstance(self.song, str):  
       data = LoadSong(self.song)
     elif isinstance(self.song, dict):

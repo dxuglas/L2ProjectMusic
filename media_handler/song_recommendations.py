@@ -29,6 +29,7 @@ class SongRecommendations():
     try:
       recommendations = get_recommendations(key, count)
     except:
+      recommendations = []
       for i in range(count):
         recommendations.append(None)
 

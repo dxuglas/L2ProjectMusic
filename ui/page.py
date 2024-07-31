@@ -10,6 +10,7 @@ from qframelesswindow import (
 
 from .playlist import PlaylistPage
 from .home import HomePage
+from .search import SearchPage
 
 
 class PageHandler(QFrame):
@@ -31,17 +32,18 @@ class PageHandler(QFrame):
     self.layout.addWidget(self.page)
     self.status = "home"
 
-  def update_page(self, type, data = None):
+  def update_page(self, type, data = None) -> None:
     if self.page:
       self.page.deleteLater()
       self.page = None
     if type == "playlist":
       self.page = PlaylistPage(self, data)
-      self.layout.addWidget(self.page)
     elif type == "home":
       self.page = HomePage(self)
-      self.layout.addWidget(self.page)
-    
+    elif type == "search":
+      self.page = SearchPage(self)
+
+    self.layout.addWidget(self.page)
     self.status = type
 
 class TitleBar(QTitleBar):
