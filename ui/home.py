@@ -45,8 +45,10 @@ class HomePage(QFrame):
 
 
 class DisplayPanel(QFrame):
-  def __init__(self, parent) -> None:
+  def __init__(self, parent, placeholder_text) -> None:
     super().__init__(parent)
+
+    self.placeholder_text = placeholder_text
 
     self.setObjectName("DisplayPanel")
 
@@ -84,7 +86,7 @@ class DisplayPanel(QFrame):
 
     for x in range(2):
       for y in range(2):
-        panel = SongPanel(self, self.songs[2*x+y])
+        panel = SongPanel(self, self.placeholder_text, self.songs[2*x+y])
         self.layout.addWidget(panel, x+1, y)
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
@@ -98,7 +100,7 @@ class DisplayPanel(QFrame):
 
 class RecommendationPanel(DisplayPanel):
   def __init__(self, parent) -> None:
-    super().__init__(parent)
+    super().__init__(parent, "Try Uploading More Songs!")
     self.title.setText("Songs from your library")
 
   def refresh(self) -> None:
@@ -110,7 +112,7 @@ class RecommendationPanel(DisplayPanel):
 class SimilarSongsPanel(DisplayPanel):
   def __init__(self, parent) -> None:
     self.song = LoadSong(SongRecommendations().from_library(1)[0])
-    super().__init__(parent)
+    super().__init__(parent, "Cannot load songs, try again later")
 
   def refresh(self) -> None:
     previous_song = self.song
@@ -149,10 +151,11 @@ class SongArt(QPushButton):
 
 
 class SongPanel(QFrame):
-  def __init__(self, parent, song = None) -> None:
+  def __init__(self, parent, placeholder_text, song = None) -> None:
     super().__init__(parent)
     self.song = song
     self.parent = parent
+    self.placeholder_text = placeholder_text
 
     self.setObjectName("SongPanel")
 
@@ -170,7 +173,7 @@ class SongPanel(QFrame):
       self.load()
     else:
       self.art.setIcon(QIcon(r"ui\assets\placeholder.svg"))
-      self.name.setText("Try Uploading More Songs!")
+      self.name.setText(self.placeholder_text)
 
     self.layout.addWidget(self.art)
     self.layout.addWidget(self.name, alignment = Qt.AlignmentFlag.AlignLeft)
