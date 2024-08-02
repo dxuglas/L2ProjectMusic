@@ -124,7 +124,8 @@ class CreatePlaylist(CreationPopup):
     self.data = {
       "name" : self.info_changer.name_edit.text(),
       "description" : self.info_changer.desc_edit.text(),
-      "icon": self.icon
+      "icon": self.icon,
+      "songs": []
     }
 
     CreatePlaylistFile(self.data)

@@ -60,7 +60,7 @@ class MenuButtons(QFrame):
     self.search_btn.clicked.connect(self.search)
     
     self.new_btn = QPushButton(objectName = "new_btn", flat = True,
-                               icon=QIcon(r"ui\assets\plus.svg"))
+                               icon=QIcon(r"ui\assets\plus_white.svg"))
     self.new_btn.clicked.connect(self.new)
 
     self.layout.addWidget(self.home_btn)

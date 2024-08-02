@@ -6,12 +6,14 @@ from PyQt6.QtWidgets import (
   QSizePolicy,
   QHBoxLayout,
   QLabel,
-  QScrollArea
+  QScrollArea,
+  QMenu,
 )
 
 from PyQt6.QtGui import (
   QIcon,
-  QResizeEvent
+  QResizeEvent,
+  QCursor
 )
 
 from PyQt6.QtCore import (
@@ -19,7 +21,8 @@ from PyQt6.QtCore import (
   QSize
 )
 
-from file_handler.load import Songs
+from file_handler.load import Songs, Playlists
+from file_handler.save import CreatePlaylistFile
 
 class SearchPage(QFrame):
   def __init__(self, parent) -> None:
@@ -114,21 +117,44 @@ class SongPanel(QFrame):
     self.name = QLabel(objectName = "name")
     self.artist = QLabel(objectName = "artist")
 
+    self.add_song_btn = QPushButton(objectName = "add_song_btn", flat = True,
+                                    icon = QIcon(r"ui\assets\plus_black.svg"))
+    self.add_song_btn.clicked.connect(self.song_menu)
+
     self.load()
 
     self.layout.addWidget(self.art)
     self.layout.addWidget(self.name, alignment = Qt.AlignmentFlag.AlignLeft)
     self.layout.addWidget(self.artist, alignment = Qt.AlignmentFlag.AlignLeft)
+    self.layout.addWidget(self.add_song_btn)
 
   def load(self) -> None:
     self.name.setText(self.song.name)
     self.artist.setText(self.song.artist)
     self.art.setIcon(self.song.icon)
 
+  def song_menu(self) -> None:
+    self.menu = QMenu(self, objectName = "menu")
+
+    self.playlists = Playlists().load()
+    for playlist in self.playlists:
+      option = self.menu.addAction(playlist["name"])
+      option.triggered.connect(lambda sacrifice = "", name = playlist: self.add_song(name))
+
+    self.menu.exec(QCursor.pos())
+
+  def add_song(self, playlist) -> None:
+    playlist["songs"].append(self.song.key)
+    CreatePlaylistFile(playlist)
+
+
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     if self.sized == False:
       self.setFixedHeight(int(self.parent.height()/8))
       self.sized = True
+
+    self.add_song_btn.setFixedWidth(self.add_song_btn.height())
+
     self.setFixedHeight(self.height())
     font = self.name.font()
     font.setPointSize(int(self.height()/5))

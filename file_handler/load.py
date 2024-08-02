@@ -42,6 +42,10 @@ class LoadFile():
     self.dir = fr"{DIRECTORY}/{dir}/"
     self.file = file
 
+    if self.file:
+      if ".json" not in self.file:
+        self.file += ".json"
+
     if not os.path.exists(self.dir):
       os.mkdir(self.dir)
 

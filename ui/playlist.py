@@ -16,6 +16,7 @@ from PyQt6.QtGui import (
   QResizeEvent
 )
 
+from file_handler.load import LoadSong
 
 class PlaylistPage(QFrame):
   def __init__(self, parent, playlist = None) -> None:
@@ -119,7 +120,6 @@ class SongPanel(QFrame):
 
     self.art = SongArt(self, song)
     self.name = QLabel(objectName = "name")
-    self.album = QLabel(objectName = "album")
     self.artist = QLabel(objectName = "artist")
 
     if song:
@@ -127,16 +127,17 @@ class SongPanel(QFrame):
     else:
       self.art.setIcon(QIcon(r"ui\assets\placeholder.svg"))
       self.name.setText("Song")
-      self.album.setText("Album")
       self.artist.setText("Artist")
 
     self.layout.addWidget(self.art)
     self.layout.addWidget(self.name, alignment = Qt.AlignmentFlag.AlignCenter)
-    self.layout.addWidget(self.album, alignment = Qt.AlignmentFlag.AlignCenter)
     self.layout.addWidget(self.artist, alignment = Qt.AlignmentFlag.AlignCenter)
 
   def load(self):
-    pass
+    song_data = LoadSong(self.song)
+    self.art.setIcon(song_data.icon)
+    self.name.setText(song_data.name)
+    self.artist.setText(song_data.artist)
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     if not self.sized:
@@ -175,8 +176,9 @@ class SongViewer(QScrollArea):
     self.frame = QFrame(self, objectName = "songs")
     self.frame.setLayout(self.layout)
 
-    for i in range(5):
-      self.layout.addWidget(SongPanel(self))
+    for song in self.playlist["songs"]:
+      widget = SongPanel(self, song)
+      self.layout.addWidget(widget)
 
     self.layout.addStretch(1)
     self.setWidget(self.frame)

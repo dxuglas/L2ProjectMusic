@@ -19,7 +19,7 @@ QPushButton#name {
 }
 
 QScrollArea {
-  background-color: white;
+  background-color: pink;
   border: 0px;
 }
 
@@ -27,4 +27,8 @@ QScrollBar:vertical {
   background: transparent;
   width: 0px;
   margin: 0px;
+}
+
+QFrame#songs {
+  background-color: aqua;
 }
