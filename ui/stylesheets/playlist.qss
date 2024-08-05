@@ -29,6 +29,3 @@ QScrollBar:vertical {
   margin: 0px;
 }
 
-QFrame#songs {
-  background-color: aqua;
-}

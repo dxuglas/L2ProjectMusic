@@ -67,12 +67,18 @@ class SearchPage(QFrame):
     self.layout.addWidget(self.scroll_area)
 
   def search(self):
-    query = self.search_bar.text().casefold().strip()
+    keywords = self.search_bar.text().split(" ")
+    matches = []
+
     for panel in self.song_panels:
-      if query not in panel.song.name.casefold() and query not in panel.song.artist.casefold():
-        panel.hide()
-      else:
-        panel.show()
+      song = panel.song
+      for keyword in keywords:
+        keyword = keyword.strip().casefold()
+        if keyword not in song.name.casefold() and keyword not in song.artist.casefold():
+          panel.hide()
+          break
+        else:
+          panel.show()
 
   def resizeEvent(self, a0: QResizeEvent | None) -> None:
     if self.sized == False: 
