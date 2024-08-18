@@ -1,8 +1,7 @@
-
 def clean(data, keys):
-  cleaned = {}
+    cleaned = {}
 
-  for key in keys:
-    cleaned[key] = data[key]
+    for key in keys:
+        cleaned[key] = data[key]
 
-  return cleaned
+    return cleaned
