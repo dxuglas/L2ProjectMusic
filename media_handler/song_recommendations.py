@@ -21,7 +21,7 @@ class SongRecommendations():
                 recommendations.append(None)
         else:
             recommendations = random.sample(self.songs, count)
-
+            
         return recommendations
 
     def from_shazam(self, key, count):
