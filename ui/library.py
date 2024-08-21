@@ -136,9 +136,7 @@ class PlaylistScroller(QScrollArea):
         self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
 
         self.layout = QVBoxLayout()
-        self.layout.setContentsMargins(0, 0, 0, 0)
         self.frame = QFrame(self, objectName="playlists")
-        self.frame.setLayout(self.layout)
 
         self.setWidget(self.frame)
         self.setWidgetResizable(True)
@@ -146,14 +144,11 @@ class PlaylistScroller(QScrollArea):
         self.load_playlists()
 
     def load_playlists(self) -> None:
-        index = self.layout.count()
-        while (index >= 0):
-            item = self.layout.itemAt(index)
-            if item:
-                widget = item.widget()
-                if widget:
-                    widget.setParent(None)
-            index -= 1
+        QFrame().setLayout(self.layout)
+
+        self.layout = QVBoxLayout()
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.frame.setLayout(self.layout)
 
         self.playlists = Playlists().load()
 
@@ -162,3 +157,5 @@ class PlaylistScroller(QScrollArea):
                                   alignment=Qt.AlignmentFlag.AlignCenter)
 
         self.layout.addStretch(1)
+
+        

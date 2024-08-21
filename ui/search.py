@@ -75,7 +75,7 @@ class SearchPage(QFrame):
             for keyword in keywords:
                 keyword = keyword.strip().casefold()
                 name = song.name.casefold()
-                artist = self.artist.casefold()
+                artist = song.artist.casefold()
                 if keyword not in name and keyword not in artist:
                     panel.hide()
                     break
@@ -163,6 +163,7 @@ class SongPanel(QFrame):
     def add_song(self, playlist) -> None:
         playlist["songs"].append(self.song.key)
         CreatePlaylistFile(playlist)
+        self.window().library.playlists_scroller.load_playlists()
 
     def resizeEvent(self, a0: QResizeEvent | None) -> None:
         if self.sized == False:

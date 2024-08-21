@@ -35,13 +35,13 @@ class MediaInterface(QFrame):
         self.playing_info = PlayingInfo(self)
         self.layout.addWidget(self.playing_info,
                               alignment=Qt.AlignmentFlag.AlignLeft,
-                              stretch=3)
+                              stretch=7)
 
         self.media_controls = MediaControls(self)
-        self.layout.addWidget(self.media_controls, stretch=2)
+        self.layout.addWidget(self.media_controls, stretch=3)
 
         self.volume_controls = VolumeControls(self)
-        self.layout.addWidget(self.volume_controls, stretch=3)
+        self.layout.addWidget(self.volume_controls, stretch=7)
 
     def load(self, song):
         self.playing_info.song = song
@@ -122,9 +122,6 @@ class MediaControls(QFrame):
 
         self.paused = True
 
-        self.shuffle_btn = QPushButton(objectName="shuffle_btn", flat=True,
-                                       icon=QIcon(r"ui\assets\shuffle.svg"))
-
         self.track_back_btn = QPushButton(objectName="track_back_btn",
                                           flat=True,
                                           icon=QIcon(r"ui\assets\bw_track.svg"))
@@ -140,15 +137,9 @@ class MediaControls(QFrame):
                                              icon=QIcon(r"ui\assets\fw_track.svg"))
         self.track_forward_btn.clicked.connect(self.track_forward_btn_pressed)
 
-        self.loop_btn = QPushButton(objectName="loop_btn",
-                                    flat=True,
-                                    icon=QIcon(r"ui\assets\loop.svg"))
-
-        self.layout.addWidget(self.shuffle_btn)
         self.layout.addWidget(self.track_back_btn)
         self.layout.addWidget(self.pause_play_btn)
         self.layout.addWidget(self.track_forward_btn)
-        self.layout.addWidget(self.loop_btn)
 
     def track_forward_btn_pressed(self):
         self.parent.controls.play_next()
@@ -169,22 +160,15 @@ class MediaControls(QFrame):
     def resizeEvent(self, a0: QResizeEvent | None) -> None:
         self.setFixedWidth(self.width())
 
-        self.shuffle_btn.setFixedHeight(self.shuffle_btn.width())
         self.track_back_btn.setFixedHeight(self.track_back_btn.width())
         self.pause_play_btn.setFixedHeight(self.pause_play_btn.width())
-        self.track_forward_btn.setFixedHeight(self.track_forward_btn.width())
-        self.loop_btn.setFixedHeight(self.loop_btn.width())
 
-        self.shuffle_btn.setIconSize(QSize(self.shuffle_btn.width(),
-                                           self.shuffle_btn.width()))
         self.track_back_btn.setIconSize(QSize(self.track_back_btn.width(),
                                               self.track_back_btn.width()))
         self.pause_play_btn.setIconSize(QSize(self.pause_play_btn.width(),
                                               self.pause_play_btn.width()))
         self.track_forward_btn.setIconSize(QSize(self.track_forward_btn.width(),
                                                  self.track_forward_btn.width()))
-        self.loop_btn.setIconSize(QSize(self.loop_btn.width(),
-                                        self.loop_btn.width()))
 
 
 class VolumeControls(QFrame):

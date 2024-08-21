@@ -284,7 +284,7 @@ class SongPanel(QFrame):
         Args:
             a0 (QResizeEvent | None): Dummy parameter required by Qt
         """
-        # Scale the songs name to be 1/4 of the panels height.
+        # Scale the songs name to be 1/5 of the panels height.
         font = self.name.font()
-        font.setPointSize(int(self.height()/4))
+        font.setPointSize(int(self.height()/5))
         self.name.setFont(font)
