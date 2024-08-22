@@ -13,27 +13,47 @@ from .search import SearchPage
 
 class PageHandler(QFrame):
     def __init__(self, parent) -> None:
+        """Initialises the page handler, which contains and switches between
+        the different pages of the interface. 
+
+        Args:
+            parent (MainWindow): The parent window of the page handler
+        """
         super().__init__(parent)
-        self.setObjectName("PageHandler")
-        self.setStyleSheet(open(r"ui\stylesheets\page.qss").read())
+        self.page = None
+
+        # Force the page handler to be its maximum size always.
         self.setSizePolicy(QSizePolicy.Policy.Expanding,
                            QSizePolicy.Policy.Expanding)
 
+        # Create a title bar, which is refrenced in the main window as the
+        # windows title bar.
         self.title_bar = QTitleBar(self)
 
+        # Setup the layout for the widget, offsetting vertically for the
+        # title bar. 
         self.layout = QVBoxLayout()
-        self.layout.setContentsMargins(0, self.title_bar.frameGeometry().height(),
-                                       0, 0)
+        self.layout.setContentsMargins(
+            0, self.title_bar.frameGeometry().height(), 0, 0)
         self.setLayout(self.layout)
 
-        self.page = HomePage(self)
-        self.layout.addWidget(self.page)
-        self.status = "home"
+        self.update_page("home")
 
-    def update_page(self, type, data=None) -> None:
+    def update_page(self, type: str, data=None) -> None:
+        """Updates the page handlers page to be the type passed.
+
+        Args:
+            type (str): The type of page. 
+            data (dict, optional): Data for the page that is being loaded. 
+            Defaults to None.
+        """
+
+        # First delete the current page. 
         if self.page:
             self.page.deleteLater()
             self.page = None
+
+        # Check the type of page requested and load it.     
         if type == "playlist":
             self.page = PlaylistPage(self, data)
         elif type == "home":
@@ -41,10 +61,6 @@ class PageHandler(QFrame):
         elif type == "search":
             self.page = SearchPage(self)
 
+        # Add the page to the layout and update the status of the handler. 
         self.layout.addWidget(self.page)
         self.status = type
-
-
-class TitleBar(QTitleBar):
-    def __init__(self, parent) -> None:
-        super().__init__(parent)

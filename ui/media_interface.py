@@ -123,20 +123,23 @@ class PlayingInfo(QFrame):
         """Updates the child widgets to display the current song information. 
         """
         self.art.setIcon(self.song.icon)
+        self.art.song = self.song
         self.art.resizeEvent(None)
         self.name.setText(self.song.name)
         self.artist.setText(self.song.artist)
 
 
 class PlayingArt(QPushButton):
-    def __init__(self, parent):
+    def __init__(self, parent, song):
         """Displays the art of the currently playing song. 
 
         Args:
             parent (QFrame): The parent of the art display.
+            song (LoadSong): The song being played.
         """
         super().__init__(parent)
         self.parent = parent
+        self.song = song
 
         self.setObjectName("PlayingArt")
         self.setFlat(True)
@@ -148,7 +151,7 @@ class PlayingArt(QPushButton):
             a0 (QResizeEvent | None): Dummy param required by Qt.
         """
         self.setFixedSize(QSize(self.parent.height(), self.parent.height()))
-
+        
         # Change the icon scaling for if the default icon is used.
         if self.song:
             self.setIconSize(QSize(self.width(), self.height()))
@@ -226,7 +229,7 @@ class MediaControls(QFrame):
                                               self.track_back_btn.width()))
         self.pause_play_btn.setIconSize(QSize(self.pause_play_btn.width(),
                                               self.pause_play_btn.width()))
-        self.track_fwd_btn.setIconSize(QSize(self.track_fwdrd_btn.width(),
+        self.track_fwd_btn.setIconSize(QSize(self.track_fwd_btn.width(),
                                              self.track_fwd_btn.width()))
 
 
