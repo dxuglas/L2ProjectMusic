@@ -25,6 +25,8 @@ from file_handler.load import Playlists
 
 
 class Library(QFrame):
+    """The library panel of the UI."""
+
     def __init__(self, parent) -> None:
         """Initialises the library panel, which includes menu buttons, and the
         buttons to open different playlists. 
@@ -35,7 +37,7 @@ class Library(QFrame):
         super().__init__(parent)
         self.parent = parent
 
-        # Link the widget to its stylesheet. 
+        # Link the widget to its stylesheet.
         self.setObjectName("Library")
         self.setStyleSheet(open(r"ui\stylesheets\library.qss").read())
 
@@ -55,6 +57,8 @@ class Library(QFrame):
 
 
 class MenuButtons(QFrame):
+    """The menu buttons which go in the Library Panel."""
+
     def __init__(self, parent: QFrame) -> None:
         """Intialises the Menu Buttons, which allow the user to go to the home
         page, search page, and access upload/creation menus. 
@@ -68,7 +72,7 @@ class MenuButtons(QFrame):
         # Link the widget to its stylesheet.
         self.setObjectName("MenuButtons")
 
-        # Setup the layout for Menu contents. 
+        # Setup the layout for Menu contents.
         self.layout = QVBoxLayout()
         self.layout.setContentsMargins(10, 5, 10, 5)
         self.layout.setSpacing(10)
@@ -111,7 +115,7 @@ class MenuButtons(QFrame):
         # Create the Menu.
         self.menu = QMenu(self, objectName="menu")
 
-        # Add the actions and link them to their call functions. 
+        # Add the actions and link them to their call functions.
         upload_song = self.menu.addAction("Upload Song")
         create_playlist = self.menu.addAction("Create Playlist")
 
@@ -133,7 +137,7 @@ class MenuButtons(QFrame):
         self.popup = CreatePlaylist(self.window())
         self.popup.exec()
 
-        # Reload the playlists in the playlist scroller. 
+        # Reload the playlists in the playlist scroller.
         self.parent.playlists_scroller.load_playlists()
 
     def resizeEvent(self, a0: QResizeEvent | None) -> None:
@@ -153,6 +157,8 @@ class MenuButtons(QFrame):
 
 
 class PlaylistButton(QPushButton):
+    """A playlist button which is used to open a users playlist."""
+
     def __init__(self, parent: QFrame, playlist: dict) -> None:
         """Creates a playlist button to be added to the playlist scroller, and
         when clicked loads the playlist page. 
@@ -165,7 +171,7 @@ class PlaylistButton(QPushButton):
         self.parent = parent
         self.playlist = playlist
 
-        # Link to stylesheet. 
+        # Link to stylesheet.
         self.setObjectName("PlaylistButton")
 
         # Configure the icon
@@ -192,6 +198,8 @@ class PlaylistButton(QPushButton):
 
 
 class PlaylistScroller(QScrollArea):
+    """The playlist scroller which displays the users playlists."""
+
     def __init__(self, parent: QFrame) -> None:
         """Creates the playlist scroll area, which contains all of the playlist
         buttons. 
@@ -203,18 +211,18 @@ class PlaylistScroller(QScrollArea):
 
         self.playlists = None
 
-        # Disable the horizontal scroll bar and force the vertical to show. 
+        # Disable the horizontal scroll bar and force the vertical to show.
         self.setHorizontalScrollBarPolicy(
             Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
 
-        # Create the layout and the frame to hold all of the buttons. 
+        # Create the layout and the frame to hold all of the buttons.
         self.layout = QVBoxLayout()
         self.frame = QFrame(self, objectName="playlists")
         self.setWidget(self.frame)
         self.setWidgetResizable(True)
 
-        # Load the playlist buttons. 
+        # Load the playlist buttons.
         self.load_playlists()
 
     def load_playlists(self) -> None:
@@ -228,7 +236,7 @@ class PlaylistScroller(QScrollArea):
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.frame.setLayout(self.layout)
 
-        # Load all of the users playlists. 
+        # Load all of the users playlists.
         self.playlists = Playlists().load()
 
         # Generate a playlist button for every playlist.
@@ -236,8 +244,5 @@ class PlaylistScroller(QScrollArea):
             self.layout.addWidget(PlaylistButton(self, playlist),
                                   alignment=Qt.AlignmentFlag.AlignCenter)
 
-        # Force the playlists to arrange at the top of the scroll area. 
+        # Force the playlists to arrange at the top of the scroll area.
         self.layout.addStretch(1)
-
-
-        

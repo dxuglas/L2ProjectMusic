@@ -25,6 +25,10 @@ from file_handler.load import LoadSong
 
 
 class PlaylistPage(QFrame):
+    """The playlist page which allows a user to browse a playlist they have
+    created.
+    """
+
     def __init__(self, parent: QFrame, playlist: dict = None) -> None:
         """The is the initialise function for the Playlist Page. It setup up
         all the neccesary widgets and loads the playlists data. 
@@ -54,6 +58,8 @@ class PlaylistPage(QFrame):
 
 
 class HeaderPanel(QFrame):
+    """The header panel of the page which displays the palylist data."""
+
     def __init__(self, parent: QFrame, playlist: dict) -> None:
         """The header panel which contains all of the playlists information. 
 
@@ -98,10 +104,10 @@ class HeaderPanel(QFrame):
         self.text_container = QFrame()
         self.text_container.setLayout(self.text_layout)
 
-        # Add the container to the main layout. 
+        # Add the container to the main layout.
         self.layout.addWidget(self.text_container, stretch=2)
 
-        # If there is a playlist load it, otherwise set the placeholders. 
+        # If there is a playlist load it, otherwise set the placeholders.
         if playlist:
             self.load()
         else:
@@ -124,18 +130,26 @@ class HeaderPanel(QFrame):
             a0 (QResizeEvent | None): Dummy param required by Qt.
         """
 
-        # Set the font size of the name to 1/7 the height of the panel. 
+        # Set the font size of the name to 1/7 the height of the panel.
         font = self.name.font()
         font.setPointSize(int(self.height()/7))
         self.name.setFont(font)
 
 
 class PlaylistArt(QPushButton):
+    """The playlist art for the header panel."""
+
     def __init__(self, parent: QFrame, playlist: dict):
+        """Creates the playlist art button.
+
+        Args:
+            parent (QFrame): The parent header panel.
+            playlist (dict): The playlist file.
+        """
         super().__init__(parent)
         self.playlist = playlist
 
-        # Link the button to its stylesheet. 
+        # Link the button to its stylesheet.
         self.setObjectName("playlist_art")
         self.setFlat(True)
 
@@ -149,10 +163,10 @@ class PlaylistArt(QPushButton):
         Args:
             a0 (QResizeEvent | None): Dummy param required by Qt. 
         """
-        # Force the art to be square. 
+        # Force the art to be square.
         self.setFixedWidth(self.height())
 
-        # Change the icon scaling depending on if the placeholder icon is used. 
+        # Change the icon scaling depending on if the placeholder icon is used.
         if self.playlist:
             self.setIconSize(QSize(self.width(), self.height()))
         else:
@@ -160,6 +174,10 @@ class PlaylistArt(QPushButton):
 
 
 class SongPanel(QFrame):
+    """The song panel which displays a song from the playlists information to
+    the user.
+    """
+
     def __init__(self, parent, song=None, playlist=None):
         """A song panel which displays a songs data.
 
@@ -175,23 +193,23 @@ class SongPanel(QFrame):
         self.parent = parent
         self.sized = False
 
-        # Link the panel to its style sheet. 
+        # Link the panel to its style sheet.
         self.setObjectName("SongPanel")
 
         self.setSizePolicy(QSizePolicy.Policy.Preferred,
                            QSizePolicy.Policy.Maximum)
 
-        # Set up the layout with 0 px margins. 
+        # Set up the layout with 0 px margins.
         self.layout = QHBoxLayout()
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
 
-        # Create the information display widgets. 
+        # Create the information display widgets.
         self.art = SongArt(self, song, playlist)
         self.name = QLabel(objectName="name")
         self.artist = QLabel(objectName="artist")
 
-        # If the panel has a song, attempt to load it, otherwise use defaults. 
+        # If the panel has a song, attempt to load it, otherwise use defaults.
         if song:
             self.load()
         else:
@@ -199,7 +217,7 @@ class SongPanel(QFrame):
             self.name.setText("Song")
             self.artist.setText("Artist")
 
-        # Add all of the information widgets to the layout. 
+        # Add all of the information widgets to the layout.
         self.layout.addWidget(self.art)
         self.layout.addWidget(
             self.name, alignment=Qt.AlignmentFlag.AlignCenter)
@@ -223,7 +241,7 @@ class SongPanel(QFrame):
             a0 (QResizeEvent | None): Dummy param required by Qt. 
         """
 
-        # Scale the panel on the first resize only. 
+        # Scale the panel on the first resize only.
         if not self.sized:
             self.sized = True
             self.setMinimumHeight(int(self.parent.height()/5))
@@ -232,6 +250,8 @@ class SongPanel(QFrame):
 
 
 class SongArt(QPushButton):
+    """The button which displays the cover art of a song for a Song Panel."""
+
     def __init__(self, parent, song: str, playlist: dict):
         """A songs art display panel, and also the play button to listen to the
         song. 
@@ -246,11 +266,11 @@ class SongArt(QPushButton):
         self.song = song
         self.playlist = playlist
 
-        # Link the art to its style sheet. 
+        # Link the art to its style sheet.
         self.setObjectName("song_art")
         self.setFlat(True)
 
-        # Connect the button to its call function. 
+        # Connect the button to its call function.
         self.clicked.connect(self.play)
 
     def play(self):
@@ -271,7 +291,7 @@ class SongArt(QPushButton):
 
         self.setFixedSize(QSize(self.parent.height(), self.parent.height()))
 
-        # Set the icon size depending on if the placeholder is in use. 
+        # Set the icon size depending on if the placeholder is in use.
         if self.song:
             self.setIconSize(QSize(self.width(), self.height()))
         else:
@@ -279,6 +299,8 @@ class SongArt(QPushButton):
 
 
 class SongViewer(QScrollArea):
+    """The scroll area where song panels are loaded."""
+
     def __init__(self, parent, playlist: dict):
         """Intialises the song viewer, which allows the user to scroll through
         the songs in a library. 
@@ -290,19 +312,19 @@ class SongViewer(QScrollArea):
         super().__init__(parent)
         self.playlist = playlist
 
-        # Disable the horizontal scroll bar and force the vertical bar to show. 
+        # Disable the horizontal scroll bar and force the vertical bar to show.
         self.setHorizontalScrollBarPolicy(
             Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
 
         # Create the layout for the viewer, and also the frame to contain the
-        # song panels. 
+        # song panels.
         self.layout = QVBoxLayout()
         self.frame = QFrame(self, objectName="songs")
         self.frame.setLayout(self.layout)
 
         # For every song in the playlist generate a song panel, and add it
-        # to the layout. 
+        # to the layout.
         for song in self.playlist["songs"]:
             widget = SongPanel(self, song, self.playlist)
             self.layout.addWidget(widget)

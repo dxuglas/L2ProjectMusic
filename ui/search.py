@@ -29,6 +29,8 @@ from file_handler.save import CreatePlaylistFile
 
 
 class SearchPage(QFrame):
+    """The search page of the UI. """
+
     def __init__(self, parent) -> None:
         """Creates a search page and sets up all of the child elements needed.
 
@@ -43,11 +45,11 @@ class SearchPage(QFrame):
 
         self.sized = False
 
-        # Set up the layout for the page. 
+        # Set up the layout for the page.
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-        # Create the search bar and connect it to is update function. 
+        # Create the search bar and connect it to is update function.
         self.search_bar = QLineEdit(placeholderText="Search...")
         self.search_bar.textChanged.connect(self.search)
 
@@ -55,14 +57,14 @@ class SearchPage(QFrame):
         self.layout.addWidget(
             self.search_bar, alignment=Qt.AlignmentFlag.AlignTop)
 
-        # Create the scroll area for search results. 
+        # Create the scroll area for search results.
         self.scroll_area = QScrollArea()
         self.scroll_area.setHorizontalScrollBarPolicy(
             Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.scroll_area.setVerticalScrollBarPolicy(
             Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
 
-        # Create the scroll area layout. 
+        # Create the scroll area layout.
         self.scroll_layout = QVBoxLayout()
         self.scroll_layout.setContentsMargins(0, 0, 0, 0)
 
@@ -72,7 +74,7 @@ class SearchPage(QFrame):
         self.scroll_area.setWidget(self.frame)
         self.scroll_area.setWidgetResizable(True)
 
-        # Get a list of songs from the users library. 
+        # Get a list of songs from the users library.
         self.songs = Songs().load()
         self.song_panels = []
 
@@ -82,7 +84,7 @@ class SearchPage(QFrame):
             self.song_panels.append(panel)
             self.scroll_layout.addWidget(panel)
 
-        # Force the song panels to align at the top of the scroll area. 
+        # Force the song panels to align at the top of the scroll area.
         self.scroll_layout.addStretch(1)
 
         self.layout.addWidget(self.scroll_area)
@@ -91,24 +93,24 @@ class SearchPage(QFrame):
         """Takes the text from the search bar and removes any songs which 
         do not match either the artist or song name from the contents. 
         """
-        # Split the search into each keyword. 
+        # Split the search into each keyword.
         keywords = self.search_bar.text().split(" ")
 
-        # For every song panel loaded. 
+        # For every song panel loaded.
         for panel in self.song_panels:
-            song = panel.song 
+            song = panel.song
             name = song.name.casefold()
             artist = song.artist.casefold()
-             # For every key word in the users search.
+            # For every key word in the users search.
             for keyword in keywords:
                 keyword = keyword.strip().casefold()
                 # If the keyword is not in the name of the song or the artist.
                 if keyword not in name and keyword not in artist:
-                    # Hide the panel and break the loop. 
+                    # Hide the panel and break the loop.
                     panel.hide()
                     break
                 else:
-                    # Show the panel. 
+                    # Show the panel.
                     panel.show()
 
     def resizeEvent(self, a0: QResizeEvent | None) -> None:
@@ -116,9 +118,9 @@ class SearchPage(QFrame):
 
         Args:
             a0 (QResizeEvent | None): Dummy param required by Qt.
-        """ 
-        
-        # Scale the search bar size to the page size only on the first resize. 
+        """
+
+        # Scale the search bar size to the page size only on the first resize.
         if self.sized == False:
             font = self.search_bar.font()
             font.setPointSize(int(self.height()/20))
@@ -127,6 +129,8 @@ class SearchPage(QFrame):
 
 
 class SongArt(QPushButton):
+    """The song art panel for the Search Page."""
+
     def __init__(self, parent: QFrame, song) -> None:
         """Create the song art, which also acts as the play button.
 
@@ -138,7 +142,7 @@ class SongArt(QPushButton):
         self.parent = parent
         self.song = song
 
-        # Link the button to its stylesheet. 
+        # Link the button to its stylesheet.
         self.setObjectName("SongArt")
 
         self.setSizePolicy(QSizePolicy.Policy.Maximum,
@@ -161,12 +165,14 @@ class SongArt(QPushButton):
         Args:
             a0 (QResizeEvent | None): Dummy param required by Qt.
         """
-        # Inforce the art sizes to prevent scaling. 
+        # Inforce the art sizes to prevent scaling.
         self.setFixedWidth(self.height())
         self.setIconSize(QSize(self.width(), self.height()))
 
 
 class SongPanel(QFrame):
+    """The song panel for the Search Page."""
+
     def __init__(self, parent, song) -> None:
         """Creates the song panel which displays the data of a song for the
         search results
@@ -180,14 +186,14 @@ class SongPanel(QFrame):
         self.parent = parent
         self.sized = False
 
-        # Link the panel to its stylesheet. 
+        # Link the panel to its stylesheet.
         self.setObjectName("SongPanel")
 
-        # Allow unlimited horizontal stretching. 
+        # Allow unlimited horizontal stretching.
         self.setSizePolicy(QSizePolicy.Policy.Preferred,
                            QSizePolicy.Policy.Expanding)
 
-        # Setup the layout for the panel. 
+        # Setup the layout for the panel.
         self.layout = QHBoxLayout()
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
@@ -196,16 +202,16 @@ class SongPanel(QFrame):
         self.name = QLabel(objectName="name")
         self.artist = QLabel(objectName="artist")
 
-        # Create the button to add the song to a playlist. 
+        # Create the button to add the song to a playlist.
         self.add_song_btn = QPushButton(objectName="add_song_btn", flat=True,
                                         icon=QIcon(r"ui\assets\plus_black.svg"))
         # Connect it to its call function.
         self.add_song_btn.clicked.connect(self.song_menu)
 
-        # Load the songs data to the name, artist, and art. 
+        # Load the songs data to the name, artist, and art.
         self.load()
 
-        # Add all of the widgets to the layout. 
+        # Add all of the widgets to the layout.
         self.layout.addWidget(self.art)
         self.layout.addWidget(self.name, alignment=Qt.AlignmentFlag.AlignLeft)
         self.layout.addWidget(
@@ -224,10 +230,10 @@ class SongPanel(QFrame):
         in their library. 
         """
 
-        # Create the menu. 
+        # Create the menu.
         self.menu = QMenu(self, objectName="menu")
 
-        # Load all playlists and add them as options. 
+        # Load all playlists and add them as options.
         self.playlists = Playlists().load()
         for playlist in self.playlists:
             option = self.menu.addAction(playlist["name"])
@@ -235,7 +241,7 @@ class SongPanel(QFrame):
             option.triggered.connect(
                 lambda sacrifice="", name=playlist: self.add_song(name))
 
-        # Open the menu at the cursor position. 
+        # Open the menu at the cursor position.
         self.menu.exec(QCursor.pos())
 
     def add_song(self, playlist: dict) -> None:
@@ -244,12 +250,12 @@ class SongPanel(QFrame):
         Args:
             playlist (dict): The playlist data. 
         """
-        
-        # Update the playlist data to include the new song. 
+
+        # Update the playlist data to include the new song.
         playlist["songs"].append(self.song.key)
         # Save the updated file.
         CreatePlaylistFile(playlist)
-        # Reload the libraries playlist selector. 
+        # Reload the libraries playlist selector.
         self.window().library.playlists_scroller.load_playlists()
 
     def resizeEvent(self, a0: QResizeEvent | None) -> None:
@@ -259,7 +265,7 @@ class SongPanel(QFrame):
             a0 (QResizeEvent | None): Dummy param required by Qt. 
         """
 
-        # Scale the song panels height to the page only on first resize. 
+        # Scale the song panels height to the page only on first resize.
         if self.sized == False:
             self.setFixedHeight(int(self.parent.height()/8))
             self.sized = True
@@ -268,7 +274,7 @@ class SongPanel(QFrame):
         self.add_song_btn.setFixedWidth(self.add_song_btn.height())
         self.setFixedHeight(self.height())
 
-        # Scale the font size to be 1/5 the height of the panel. 
+        # Scale the font size to be 1/5 the height of the panel.
         font = self.name.font()
         font.setPointSize(int(self.height()/5))
         self.name.setFont(font)

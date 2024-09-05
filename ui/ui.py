@@ -22,9 +22,11 @@ from media_handler.controls import Controls
 
 
 class MainWindow(QWindow):
+    """The Main Window of the program."""
+
     def __init__(self, parent) -> None:
-        """The Main Window of the program, which sets up the whole interface,
-        and acts as a way to pass data between widgets.
+        """Sets up the whole GUI. and acts as a way to pass data between 
+        widgets.
 
         Args:
             parent (Application): The application the window belongs too. 
@@ -33,10 +35,10 @@ class MainWindow(QWindow):
 
         self.parent = parent
 
-        # Create a media controller object. 
+        # Create a media controller object.
         self.controls = Controls(self)
 
-        # Connect to the windows stylesheet. 
+        # Connect to the windows stylesheet.
         self.setStyleSheet(open(r"ui\stylesheets\ui.qss").read())
 
         # Set the minimum size of the window based on screen size.
@@ -44,7 +46,7 @@ class MainWindow(QWindow):
         self.setMinimumSize(int(self.screen_size[0]/2),
                             int(self.screen_size[0]/2.82))
 
-        # Set up the windows layout, with 0 pixels of margin. 
+        # Set up the windows layout, with 0 pixels of margin.
         self.layout = QVBoxLayout()
         self.layout.setSpacing(0)
         self.layout.setContentsMargins(0, 0, 0, 0)
@@ -55,12 +57,12 @@ class MainWindow(QWindow):
         self.center_layout.setSpacing(0)
         self.center_layout.setContentsMargins(0, 0, 0, 0)
 
-        # Create a library, and add it too the center content, aligned left. 
+        # Create a library, and add it too the center content, aligned left.
         self.library = Library(self)
         self.center_layout.addWidget(self.library,
                                      alignment=Qt.AlignmentFlag.AlignLeft)
 
-        # Create a page handler, and add it too the center content. 
+        # Create a page handler, and add it too the center content.
         self.page_handler = PageHandler(self)
         self.center_layout.addWidget(self.page_handler)
 
@@ -68,19 +70,19 @@ class MainWindow(QWindow):
         self.media_layout = QHBoxLayout()
         self.media_layout.setContentsMargins(0, 0, 0, 0)
 
-        # Create the media interface and add it to the media layout. 
+        # Create the media interface and add it to the media layout.
         self.media_interface = MediaInterface(self)
         self.media_layout.addWidget(self.media_interface,
                                     alignment=Qt.AlignmentFlag.AlignBottom)
 
-        # Add both content layouts to the main layout. 
+        # Add both content layouts to the main layout.
         self.layout.addLayout(self.center_layout)
         self.layout.addLayout(self.media_layout)
 
         # Set the windows title bar, which contains window controls.
         self.setTitleBar(self.page_handler.title_bar)
 
-        # Begin a timer which runs the update function every 0.5 seconds. 
+        # Begin a timer which runs the update function every 0.5 seconds.
         self.timer = QTimer(self, singleShot=False, interval=500)
         self.timer.timeout.connect(self.controls.update)
         self.timer.start()

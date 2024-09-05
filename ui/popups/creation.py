@@ -29,6 +29,8 @@ import shazam_interface.recognize_song as recognize_song
 
 
 class CreationPopup(QDialog):
+    """The pop up for the creation of playlists/songs."""
+
     def __init__(self, window, name: str, desc: bool, controls: list) -> None:
         """Initialise a creation popup.
 
@@ -47,7 +49,7 @@ class CreationPopup(QDialog):
         self.icon = r"ui\assets\file.svg"
         self.name = name
 
-        self.setModal(True) # Always on top
+        self.setModal(True)  # Always on top
 
         # Link the widget to its style sheet.
         self.setObjectName("CreationPopup")
@@ -116,6 +118,8 @@ class CreationPopup(QDialog):
 
 
 class InfoChanger(QFrame):
+    """The info changer panel used in the Creation Popup."""
+
     def __init__(self, parent: QDialog, name: str, desc: bool) -> None:
         """The initialisation function for the creation popups info changer.
 
@@ -152,7 +156,7 @@ class InfoChanger(QFrame):
             a0 (QResizeEvent | None): Dummy param required by Qt
         """
 
-        # Get the font object being used for the name. 
+        # Get the font object being used for the name.
         font = self.name_edit.font()
 
         # Set the name font size to 1/7 the dialog height
@@ -165,6 +169,10 @@ class InfoChanger(QFrame):
 
 
 class CreatePlaylist(CreationPopup):
+    """A reimplementation of some aspects of the CreationPopup tuned for
+    playlist creation.
+    """
+
     def __init__(self, window) -> None:
         """Instance of the Creation Popup which is setup to allow the user to
         create playlists.
@@ -188,11 +196,15 @@ class CreatePlaylist(CreationPopup):
         }
 
         CreatePlaylistFile(self.data)
-        # Close the popup. 
+        # Close the popup.
         self.accept()
 
 
 class UploadSong(CreationPopup):
+    """A reimplementation of some aspects of the CreationPopup tuned for
+    song uploads.
+    """
+
     def __init__(self, window) -> None:
         """Instance of the Creation Popup setup to allow users to upload songs.
 
@@ -219,12 +231,12 @@ class UploadSong(CreationPopup):
         shazam, and displaying it to the user. 
         """
 
-        # Create a file dialog for the song to be selected. 
+        # Create a file dialog for the song to be selected.
         self.file = Selector().get_file(type="song")[0]
 
-        # Check if a song was uploaded. 
+        # Check if a song was uploaded.
         if self.file:
-            # Attempt to load the songs data, fails if their is no internet. 
+            # Attempt to load the songs data, fails if their is no internet.
             try:
                 self.data = recognize_song.recognise(self.file)
                 self.get_and_set_image_from_url(
@@ -248,7 +260,7 @@ class UploadSong(CreationPopup):
         pixmap = QPixmap()
         pixmap.loadFromData(request.content)
 
-        # Convert the pixmap to an icon and set it. 
+        # Convert the pixmap to an icon and set it.
         icon = QIcon(pixmap)
         self.icon_changer.setIcon(icon)
         self.icon_changer.setIconSize(QSize(self.icon_changer.width(),

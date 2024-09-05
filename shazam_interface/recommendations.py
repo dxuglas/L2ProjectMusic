@@ -24,7 +24,7 @@ def get_recommendations(key: str, count: int) -> list:
     loop = asyncio.get_event_loop()
     data = loop.run_until_complete(shazam_related_tracks(key, count))["tracks"]
 
-    # Clean the sng data to remove all information that isn't wanted. 
+    # Clean the sng data to remove all information that isn't wanted.
     recommendations = []
     for track in data:
         recommendations.append(

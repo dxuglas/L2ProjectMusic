@@ -12,6 +12,7 @@ DIRECTORY = os.path.expanduser(f'~/AppData/Local/Musi')
 class SaveFile():
     """Saves a generic json file of the passed data. 
     """
+
     def __init__(self, name: str, data: str, path: str) -> None:
         """Saves a file to the users save directory.
 
@@ -33,6 +34,7 @@ class SaveFile():
 class CreatePlaylistFile():
     """Instances the SaveFile class with settings for playlist files. 
     """
+
     def __init__(self, data: dict) -> None:
         """Save a playlist file
 
@@ -49,13 +51,14 @@ class CreatePlaylistFile():
 class CreateSongFile():
     """Instances the SaveFile class with settings for song files. 
     """
+
     def __init__(self, data: dict) -> None:
         """Saves a song file
 
         Args:
             data (dict): The song data to be saved. 
         """
-        
+
         self.data = data
         self.name = self.data["key"]
 

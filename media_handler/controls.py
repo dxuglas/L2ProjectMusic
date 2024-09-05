@@ -13,6 +13,7 @@ class Controls():
     """Takes commands from the users interactions and converts it into signals
     for the systems media streams.  
     """
+
     def __init__(self, master) -> None:
         """The init function for the media controller. Sets up the default 
         values so it is ready to play music. 
@@ -21,14 +22,14 @@ class Controls():
             master (MainWindow): The main window it is controlling audio for. 
         """
 
-        self.master = master 
+        self.master = master
 
         # Current song information
         self.song = None
         self.playlist = None
         self.index = 0
         self.paused = False
-        
+
         # The counter to allow different modes for the previous track button
         self.prev_track_count = 0
 
@@ -100,7 +101,7 @@ class Controls():
         """Play the next song in the playlist.
         """
         if self.playlist:
-            # Check for index overflow. 
+            # Check for index overflow.
             if self.index >= len(self.playlist["songs"]) - 1:
                 self.index = -1
 

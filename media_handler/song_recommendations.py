@@ -10,9 +10,11 @@ from shazam_interface.recommendations import get_recommendations
 
 DIRECTORY = os.path.expanduser(f'~/AppData/Local/Musi/Songs')
 
+
 class SongRecommendations():
     """Handles requests for song recommendations by the UI. 
     """
+
     def __init__(self) -> None:
         """The init function for song reccomendations, gets a list of songs
         avaliable. 
@@ -41,7 +43,7 @@ class SongRecommendations():
                 recommendations.append(None)
         else:
             recommendations = random.sample(self.songs, count)
-            
+
         return recommendations
 
     def from_shazam(self, key: str, count: int) -> list:
@@ -53,10 +55,10 @@ class SongRecommendations():
 
         Returns:
             list: The list of song recommendations.
-        """ 
+        """
 
         # Try to get recommendations, fails if no internet access / shazam is
-        # down.     
+        # down.
         try:
             recommendations = get_recommendations(key, count)
         except:

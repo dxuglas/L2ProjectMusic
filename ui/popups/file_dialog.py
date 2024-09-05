@@ -9,13 +9,15 @@ import os
 
 
 class Selector(QFileDialog):
+    """A file selector window pop up for user uploaded data."""
+
     def __init__(self) -> None:
         """Intialises a file dialog to allow users to browse their computer
         for files to upload.
         """
         super().__init__()
 
-        self.setModal(True) # Always on top
+        self.setModal(True)  # Always on top
         self.setOption(QFileDialog.Option.ReadOnly, True)
 
         self.image_exts = "*.jpg *.jpeg *.png *.webp *.svg"
@@ -36,6 +38,5 @@ class Selector(QFileDialog):
         elif type == "song":
             ext = self.song_exts
             dir = f'~/Music'
-        return self.getOpenFileName(filter=ext, 
+        return self.getOpenFileName(filter=ext,
                                     directory=os.path.expanduser(dir))
-

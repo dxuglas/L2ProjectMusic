@@ -27,6 +27,8 @@ import webbrowser
 
 
 class HomePage(QFrame):
+    """The home page of the UI."""
+
     def __init__(self, parent: QFrame) -> None:
         """This is the initialise function for the Home Page class, which
         setups up all of the neccesary child widgets.
@@ -53,6 +55,10 @@ class HomePage(QFrame):
 
 
 class DisplayPanel(QFrame):
+    """A generic song display panel for the home page which is instanced for
+    more specific use cases.
+    """
+
     def __init__(self, parent: QFrame, placeholder_text: str) -> None:
         """This is the instialise function of the Display Panel class, which
         acts as a base class for the different types of display panels on the
@@ -274,7 +280,7 @@ class SongPanel(QFrame):
         """Loads a songs data to the panel.
         """
 
-        # Checks if the song passed is a file or shazam data and loads it. 
+        # Checks if the song passed is a file or shazam data and loads it.
         if isinstance(self.song, str):
             data = LoadSong(self.song)
         elif isinstance(self.song, dict):

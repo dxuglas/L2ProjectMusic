@@ -21,10 +21,13 @@ from PyQt6.QtGui import QIcon, QResizeEvent
 
 
 class MediaInterface(QFrame):
-    def __init__(self, parent, song=None) -> None:
-        """The Media Interface allows for the user to interact with the media
+    """The Media Interface allows for the user to interact with the media
         controller, such as pausing, playing, skipping tracks, and adjusting
-        the volume. 
+        the volume.
+    """
+
+    def __init__(self, parent, song=None) -> None:
+        """Initialises the media inteface and loads all component widgets.
 
         Args:
             parent (MainWindow): The window the media interface belongs to.
@@ -77,6 +80,8 @@ class MediaInterface(QFrame):
 
 
 class PlayingInfo(QFrame):
+    """The panel for the currently playing song. """
+
     def __init__(self, parent, song=None) -> None:
         """Displays information about the currently playing song.
 
@@ -135,6 +140,8 @@ class PlayingInfo(QFrame):
 
 
 class PlayingArt(QPushButton):
+    """The art button for the currently playing song."""
+
     def __init__(self, parent, song):
         """Displays the art of the currently playing song. 
 
@@ -156,7 +163,7 @@ class PlayingArt(QPushButton):
             a0 (QResizeEvent | None): Dummy param required by Qt.
         """
         self.setFixedSize(QSize(self.parent.height(), self.parent.height()))
-        
+
         # Change the icon scaling for if the default icon is used.
         if self.song:
             self.setIconSize(QSize(self.width(), self.height()))
@@ -165,9 +172,12 @@ class PlayingArt(QPushButton):
 
 
 class MediaControls(QFrame):
-    def __init__(self, parent: QFrame):
-        """The controls which allow the user to interact with the media
+    """The controls which allow the user to interact with the media
         controller. 
+    """
+
+    def __init__(self, parent: QFrame):
+        """Intialises the media controls.
 
         Args:
             parent (QFrame): The parent widget for the controls.
@@ -239,9 +249,12 @@ class MediaControls(QFrame):
 
 
 class VolumeControls(QFrame):
+    """The controls to allow the user to adjust the media controllers
+    output volume. 
+    """
+
     def __init__(self, parent: QFrame):
-        """The controls to allow the user to adjust the media controllers
-        output volume. 
+        """Initialises the volume controls.  
 
         Args:
             parent (QFrame): The parent widget for the media controls.
@@ -251,7 +264,7 @@ class VolumeControls(QFrame):
         self.volume = 1
         self.muted = False
 
-        # Connect the controls to their stylesheet. 
+        # Connect the controls to their stylesheet.
         self.setObjectName("VolumeControls")
 
         # Setup the layout.
@@ -259,7 +272,7 @@ class VolumeControls(QFrame):
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
 
-        # Create the mute button and connect it to its call function. 
+        # Create the mute button and connect it to its call function.
         self.mute_btn = QPushButton(objectName="mute_btn", flat=True,
                                     icon=QIcon(r"ui\assets\mute_off_2.svg"))
         self.mute_btn.clicked.connect(self.mute_btn_pressed)
@@ -273,7 +286,7 @@ class VolumeControls(QFrame):
         self.volume_bar.setSizePolicy(QSizePolicy.Policy.Maximum,
                                       QSizePolicy.Policy.Maximum)
 
-        # Add the widgets to the layout. 
+        # Add the widgets to the layout.
         self.layout.addStretch(1)
         self.layout.addWidget(
             self.mute_btn, alignment=Qt.AlignmentFlag.AlignRight)
@@ -309,7 +322,7 @@ class VolumeControls(QFrame):
         else:
             self.mute_btn.setIcon(QIcon(r"ui\assets\mute_off_0.svg"))
 
-        # Set the media controller volume. 
+        # Set the media controller volume.
         self.parent.controls.set_volume(self.volume/100)
 
     def resizeEvent(self, a0: QResizeEvent | None) -> None:
@@ -319,7 +332,7 @@ class VolumeControls(QFrame):
         Args:
             a0 (QResizeEvent | None): Dummy param required by Qt. 
         """
-        
+
         self.mute_btn.setFixedWidth(self.mute_btn.height())
         self.mute_btn.setFixedHeight(self.mute_btn.height())
         self.volume_bar.setFixedHeight(int(self.mute_btn.height()/2))
