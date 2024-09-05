@@ -1,3 +1,9 @@
+"""This module contains the library panel, and all associated widgets such as
+the menu buttons and playlist browser. 
+
+Noah Douglas - 6/9/24
+"""
+
 from PyQt6.QtWidgets import (
     QFrame,
     QPushButton,

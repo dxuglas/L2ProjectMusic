@@ -1,3 +1,9 @@
+"""This module contains the page handler which acts a parent for the currently
+displayed page and handles reinstancing of pages when they are swapped. 
+
+Noah Douglas - 6/9/24
+"""
+
 from PyQt6.QtWidgets import (
     QFrame,
     QVBoxLayout,

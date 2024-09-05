@@ -1,3 +1,9 @@
+"""This module contains the function for cleaning dictionaries which is used
+across the program for Shazam data.
+
+Noah Douglas - 6/9/24
+"""
+
 def clean(data: dict, keys: list) -> dict:
     """Cleans a dictionary to remove all unwanted keys.
 
@@ -9,7 +15,7 @@ def clean(data: dict, keys: list) -> dict:
         dict: The resulting cleaned dict.
     """
     cleaned = {}
-
+    
     for key in keys:
         cleaned[key] = data[key]
 

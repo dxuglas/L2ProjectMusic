@@ -1,3 +1,9 @@
+"""This module is used to serve the user recommendations based on the Shazam
+API.
+
+Noah Douglas - 6/9/24
+"""
+
 import asyncio
 from shazamio import Shazam
 from .clean_data import clean
@@ -16,7 +22,7 @@ def get_recommendations(key: str, count: int) -> list:
     """
     # Start an async loop and then query shazam inside it.
     loop = asyncio.get_event_loop()
-    data = loop.run_until_complete(query_shazam(key, count))["tracks"]
+    data = loop.run_until_complete(shazam_related_tracks(key, count))["tracks"]
 
     # Clean the sng data to remove all information that isn't wanted. 
     recommendations = []
@@ -27,7 +33,7 @@ def get_recommendations(key: str, count: int) -> list:
     return recommendations
 
 
-async def query_shazam(key: str, count: int) -> list:
+async def shazam_related_tracks(key: str, count: int) -> list:
     """Querys the shazam api for song recommendations
 
     Args:

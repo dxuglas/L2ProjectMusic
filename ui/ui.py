@@ -1,3 +1,9 @@
+"""This module contains the main window of the UI; the rest of the UI is built
+here. 
+
+Noah Douglas - 6/9/24
+"""
+
 from qframelesswindow import (
     FramelessWindow as QWindow,
 )

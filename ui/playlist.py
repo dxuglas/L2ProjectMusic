@@ -1,3 +1,9 @@
+"""This module contains the playlist page which displays a playlists data to the
+user.
+
+Noah Douglas - 6/9/24
+"""
+
 from PyQt6.QtWidgets import (
     QFrame,
     QHBoxLayout,

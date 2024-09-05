@@ -1,3 +1,9 @@
+"""This module loads song, playlist, and other files for use throughout the
+program.
+
+Noah Douglas - 6/9/24
+"""
+
 import json
 import os
 import requests
@@ -16,6 +22,8 @@ if not os.path.exists(DIRECTORY):
 
 
 class Playlists():
+    """Loads the users playlists files. 
+    """
     def __init__(self) -> None:
         """This is the init function for the Playlist loader
         """
@@ -30,7 +38,7 @@ class Playlists():
             list: A list of loaded playlist files.
         """
 
-        # For every file in the playlist directory
+        # For every file in the playlist directory load the file. 
         for file in os.listdir(fr"{DIRECTORY}/{self.dir}"):
             self.playlists.append(LoadFile(self.dir, file).load())
 
@@ -38,8 +46,10 @@ class Playlists():
 
 
 class Songs():
+    """Loads the users song files. 
+    """
     def __init__(self) -> None:
-        """This is the intialisation function for the Song loader
+        """This is the intialisation function for the Song loader.
         """
         self.dir = "Songs"
         self.songs = []
@@ -59,6 +69,8 @@ class Songs():
 
 
 class LoadFile():
+    """Loads a file of generic json type.
+    """
     def __init__(self, dir: str, file: str) -> None:
         """This is the init function for file loader, which checks to ensure
         the file can actually exist.
@@ -82,7 +94,7 @@ class LoadFile():
             os.mkdir(self.dir)
 
     def load(self) -> dict | None:
-        """Attempts to load the file
+        """Attempts to load the file.
 
         Returns:    
             dict: The song data, if loaded failed defaults to None.
@@ -97,6 +109,9 @@ class LoadFile():
 
 
 class LoadSong(LoadFile):
+    """A reimplementation of some aspects of the LoadFile class to format a song
+    file when it is loaded.
+    """
     def __init__(self, file: str, data: dict = None) -> None:
         """Init function the song loader, itself an instance of the file loader
         with additioanl functionality to attempt to load individual song
@@ -121,7 +136,7 @@ class LoadSong(LoadFile):
         except:
             self.key = None
             self.name = "Couldn't load song data"
-            self.artist = " "
+            self.artist = ""
 
         # Try to store the songs track, which may fail if data was passed and
         # not a file when the object was intialised. 
@@ -136,7 +151,6 @@ class LoadSong(LoadFile):
             request = requests.get(self.data["images"]["coverart"])
             pixmap = QPixmap()
             pixmap.loadFromData(request.content)
-
             self.icon = QIcon(pixmap)
         except:
             self.icon = QIcon()

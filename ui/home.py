@@ -1,3 +1,9 @@
+"""This module contains the home page of the UI, and any widgets required to
+build this page.
+
+Noah Douglas - 6/9/24
+"""
+
 from PyQt6.QtWidgets import (
     QFrame,
     QVBoxLayout,

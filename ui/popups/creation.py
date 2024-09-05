@@ -1,3 +1,9 @@
+"""This module contains the popups used in the program for creation of playlists
+and song uploading. 
+
+Noah Douglas - 6/9/24
+"""
+
 from PyQt6.QtWidgets import (
     QFrame,
     QLineEdit,

@@ -1,3 +1,9 @@
+"""This module is used to recognize the users uploaded songs using the Shazam
+API.
+
+Noah Douglas - 6/9/24
+"""
+
 import asyncio
 from shazamio import Shazam
 
@@ -15,12 +21,12 @@ def recognise(file: str) -> dict:
         dict: The song data from shazam.
     """
     loop = asyncio.get_event_loop()
-    data = loop.run_until_complete(get_song_data(file))
+    data = loop.run_until_complete(shazam_recognise(file))
     cleaned_data = clean(data, ["title", "subtitle", "key", "images"])
     return cleaned_data
 
 
-async def get_song_data(file: str) -> dict:
+async def shazam_recognise(file: str) -> dict:
     """The async shazam function, which gets the information about a song based
     on it's file. 
 

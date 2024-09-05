@@ -1,3 +1,9 @@
+"""This module contains the search page which allows the user to browse their
+music library, and all associated widgets. 
+
+Noah Douglas - 6/9/24
+"""
+
 from PyQt6.QtWidgets import (
     QFrame,
     QLineEdit,

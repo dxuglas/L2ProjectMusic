@@ -1,9 +1,14 @@
+"""This module contains the media interface panel and all associated widgets
+such as the volume controls and current song panel. 
+
+Noah Douglas - 6/9/24
+"""
+
 from PyQt6.QtWidgets import (
     QFrame,
     QPushButton,
     QHBoxLayout,
     QVBoxLayout,
-    QGridLayout,
     QSlider,
     QLabel,
     QSizePolicy

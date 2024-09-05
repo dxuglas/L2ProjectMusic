@@ -1,3 +1,9 @@
+"""This module contains methods for song recommendations both on the users
+library and also on Shazam recommendations.
+
+Noah Douglas - 6/9/24
+"""
+
 import os
 import random
 from shazam_interface.recommendations import get_recommendations
@@ -5,6 +11,8 @@ from shazam_interface.recommendations import get_recommendations
 DIRECTORY = os.path.expanduser(f'~/AppData/Local/Musi/Songs')
 
 class SongRecommendations():
+    """Handles requests for song recommendations by the UI. 
+    """
     def __init__(self) -> None:
         """The init function for song reccomendations, gets a list of songs
         avaliable. 
@@ -47,7 +55,7 @@ class SongRecommendations():
             list: The list of song recommendations.
         """ 
 
-        # Try to get recommendations, fails if not internet access / shazam is
+        # Try to get recommendations, fails if no internet access / shazam is
         # down.     
         try:
             recommendations = get_recommendations(key, count)

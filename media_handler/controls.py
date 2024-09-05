@@ -1,8 +1,18 @@
+"""This module handles all of the programs media controls. Objects of classes
+defined here are interfaced with to control the media, and methods here then
+interface with the users computer.
+
+Noah Douglas - 6/9/24
+"""
+
 from pygame import mixer
 from file_handler.load import LoadSong
 
 
 class Controls():
+    """Takes commands from the users interactions and converts it into signals
+    for the systems media streams.  
+    """
     def __init__(self, master) -> None:
         """The init function for the media controller. Sets up the default 
         values so it is ready to play music. 

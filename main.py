@@ -1,3 +1,8 @@
+"""This module executes the program. 
+
+Noah Douglas - 6/9/24
+"""
+
 import sys
 from ui import ui
 from PyQt6 import QtWidgets

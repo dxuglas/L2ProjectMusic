@@ -1,3 +1,9 @@
+"""This module contains the file dialog which allows the users to browse their
+file system from in my program.
+
+Noah Douglas - 6/9/24
+"""
+
 from PyQt6.QtWidgets import QFileDialog
 import os
 
